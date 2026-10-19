@@ -113,7 +113,7 @@
     return '<article class="news-item" style="--c:'+c+'">'+
       '<div class="news-date"><b>'+(+p[2])+' '+MOIS[+p[1]-1]+'</b>'+p[0]+'</div>'+
       '<div class="news-body">'+
-        '<div class="news-meta"><span class="tag" style="--tc:'+c+'">'+esc(it.category)+'</span><span>'+esc(it.source)+'</span></div>'+
+        '<div class="news-meta"><span class="tag" style="--tc:'+c+'">'+esc(it.category)+'</span>'+((it.audience||[]).map(function(a){return '<span class="aud aud-'+esc(a)+'">'+(a==='pilote'?'Pilotes':a==='tcm'?'Assistants de vol':'Commun')+'</span>';}).join(''))+'<span>'+esc(it.source)+'</span></div>'+
         '<h3><a href="'+esc(it.url)+'" target="_blank" rel="noopener">'+esc(it.title)+' ↗</a></h3>'+
         '<p>'+esc(it.summary)+'</p>'+
       '</div></article>';
@@ -148,6 +148,26 @@
     var map={};toc.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
     var tio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){toc.forEach(function(a){a.classList.remove('on');});var a=map[e.target.id];if(a)a.classList.add('on');}});},{rootMargin:'-20% 0px -70% 0px'});
     Object.keys(map).forEach(function(id){var el=document.getElementById(id);if(el)tio.observe(el);});
+  }
+
+
+  // ---------- Fiches : filtre Commun / Pilotes / Assistants de vol ----------
+  var af=document.getElementById('audFilter');
+  if(af){
+    var LBL={commun:'Commun',pilote:'Pilotes',tcm:'Assistants de vol'};
+    document.querySelectorAll('.fiche[data-aud]').forEach(function(f){
+      var a=f.getAttribute('data-aud'), sm=f.querySelector('summary h3');
+      if(sm){ var t=document.createElement('span'); t.className='aud aud-'+a; t.textContent=LBL[a]; sm.appendChild(t); }
+    });
+    var apply=function(a){
+      af.querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-a')===a); });
+      document.querySelectorAll('.fiche[data-aud]').forEach(function(f){
+        var v=f.getAttribute('data-aud'); f.hidden = !!a && !(v===a || (a!=='commun' && v==='commun'));
+      });
+    };
+    af.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b) return; apply(b.getAttribute('data-a'));
+      try{ var u=new URL(location.href); var v=b.getAttribute('data-a'); if(v) u.searchParams.set('public',v); else u.searchParams.delete('public'); history.replaceState(null,'',u); }catch(err){} });
+    var q=new URLSearchParams(location.search).get('public'); if(q && LBL[q]) apply(q);
   }
 
   // ---------- Fiche ciblée par l'ancre ----------

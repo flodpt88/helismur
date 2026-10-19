@@ -1,11 +1,13 @@
-# Assistant de vol SMUH
+# Équipage héliSMUR
 
-Site public des assistants de vol (membres d'équipage technique) de l'hélicoptère du SAMU.
+Site public des équipages de l'hélicoptère du SAMU : pilotes et assistants de vol (membres d'équipage technique).
 
 - `index.html` : accueil
 - `actualites/` : actualités, chargées depuis `data/news.json` (mis à jour chaque semaine)
 - `reglementation/` : fiches réglementaires (SPA.HEMS, ORO.TC, médical, statut, temps de service, convention collective)
-- `metier/` : article long format sur le métier
+- `pilote/` : devenir pilote héliSMUR
+- `metier/` : devenir assistant de vol (article long format)
+- `bases/` : carte des bases, chargée depuis `data/bases.json`
 - `outils/` : boîte à outils (briefing, nuit aéronautique, GPS, heures décimales, kéro)
 - `assets/` : style, scripts, illustration
 
@@ -21,8 +23,18 @@ Ajouter un objet en tête de `items` dans `data/news.json` et mettre à jour `up
   "title": "Titre court",
   "summary": "Résumé rédigé avec ses propres mots, 2 ou 3 phrases.",
   "source": "Nom du média",
-  "url": "https://lien-vers-la-source"
+  "url": "https://lien-vers-la-source",
+  "audience": ["pilote", "tcm"]
 }
+```
+
+`audience` est facultatif : à indiquer quand l'actu concerne surtout les pilotes, les TCM, ou les deux.
+
+## Ajouter une base
+
+Dans `data/bases.json`, une entrée par base confirmée par une source (ville, samu, region, lat, lon, exploitant, appareil, horaires, source, url). Exploitant et appareil seulement si une source récente les confirme.
+
+```text
 ```
 
 Publié avec GitHub Pages (branche `main`, racine).

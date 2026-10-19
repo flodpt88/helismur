@@ -53,7 +53,11 @@
       "title": "« Hélicos Samu, le modèle français en danger » : les médecins tirent la sonnette d'alarme",
       "summary": "Aerobuzz relaie l'appel de l'AFHSH, l'association des médecins utilisateurs d'hélicoptères sanitaires : le modèle opérationnel et économique est sous tension, et les autorités sont invitées à agir avant l'évolution réglementaire attendue sur les vols de nuit.",
       "source": "Aerobuzz",
-      "url": "https://www.aerobuzz.fr/helicoptere/helicos-samu-le-modele-francais-en-danger/"
+      "url": "https://www.aerobuzz.fr/helicoptere/helicos-samu-le-modele-francais-en-danger/",
+      "audience": [
+        "pilote",
+        "tcm"
+      ]
     },
     {
       "id": "2026-04-07-ctsu-report",
@@ -80,7 +84,11 @@
       "title": "Avenants 23 et 24 étendus : nouvelle grille et prime de fidélité pour tout le secteur",
       "summary": "L'arrêté d'extension rend obligatoires pour tous les exploitants la revalorisation de la prime SAMU (568 € en H24 au 1er janvier 2027), la prime jumelles de vision nocturne et la prime de fidélité à 20 et 25 ans d'ancienneté.",
       "source": "Convention collective IDCC 1944",
-      "url": "https://code.travail.gouv.fr/convention-collective/1944-exploitation-dhelicopteres"
+      "url": "https://code.travail.gouv.fr/convention-collective/1944-exploitation-dhelicopteres",
+      "audience": [
+        "pilote",
+        "tcm"
+      ]
     },
     {
       "id": "2026-03-13-cnom-moratoire",

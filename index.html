@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Assistant de vol SMUH · actus, réglementation et outils de l'héliSMUR</title>
-<meta name="description" content="Le site des assistants de vol (membres d'équipage technique) de l'hélicoptère du SAMU : actualités de l'héliSMUR, réglementation expliquée, le métier et une boîte à outils de briefing.">
-<meta property="og:title" content="Assistant de vol SMUH">
-<meta property="og:description" content="Actualités de l'héliSMUR, réglementation expliquée, le métier et la boîte à outils des assistants de vol.">
+<title>Équipage héliSMUR · actualités, réglementation et outils des pilotes et assistants de vol</title>
+<meta name="description" content="Le site des équipages de l'hélicoptère du SAMU, pilotes et assistants de vol : actualités de l'héliSMUR, réglementation expliquée, devenir pilote ou TCM, carte des bases et boîte à outils.">
+<meta property="og:title" content="Équipage héliSMUR">
+<meta property="og:description" content="Actualités, réglementation, métiers, carte des bases et outils des équipages de l'hélicoptère du SAMU.">
 <meta property="og:image" content="assets/hero.jpg">
 <meta name="theme-color" content="#0a0920">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff3d8b'/%3E%3Cpath d='M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z' fill='%23fff'/%3E%3C/svg%3E">
@@ -20,14 +20,16 @@
 
 <header class="site-head">
   <div class="wrap">
-    <a class="logo" href="./"><i>✚</i><span>Assistant de vol<small>SMUH · héliSMUR</small></span></a>
+    <a class="logo" href="./"><i>✚</i><span>Équipage héliSMUR<small>Pilotes · Assistants de vol</small></span></a>
     <button class="burger" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav">
       <a href="./" aria-current="page">Accueil</a>
       <a href="actualites/">Actualités</a>
       <a href="reglementation/">Réglementation</a>
-      <a href="metier/">Le métier</a>
-      <a href="outils/">Boîte à outils</a>
+      <a href="pilote/">Pilote</a>
+      <a href="metier/">Assistant de vol</a>
+      <a href="bases/">Bases</a>
+      <a href="outils/">Outils</a>
     </nav>
   </div>
 </header>
@@ -45,13 +47,13 @@
     </div>
   </div>
   <div class="wrap hero3d-inner">
-    <div class="eyebrow fade-up">// L'hélicoptère du SAMU, vu du siège avant</div>
-    <h1 id="t-hero"><span class="line"><span>Le site des</span></span><span class="line"><span class="glow-text">assistants</span></span><span class="line"><span>de vol.</span></span></h1>
-    <p class="lead fade-up">Les actualités de l'héliSMUR chaque semaine, la réglementation expliquée texte en main, la réalité du métier de membre d'équipage technique, et les outils du briefing au retour de mission.</p>
+    <div class="eyebrow fade-up">// L'hélicoptère du SAMU, vu des deux sièges avant</div>
+    <h1 id="t-hero"><span class="line"><span>Le site des</span></span><span class="line"><span class="glow-text">équipages</span></span><span class="line"><span>héliSMUR.</span></span></h1>
+    <p class="lead fade-up">Pilotes et assistants de vol : les actualités de l'héliSMUR chaque semaine, la réglementation expliquée texte en main, les deux métiers vus de l'intérieur, la carte des bases et les outils du briefing au retour de mission.</p>
     <div class="btns fade-up d2" style="margin-top:28px">
-      <a class="btn hot" href="#actus">Les actualités</a>
-      <a class="btn" href="metier/">Devenir assistant de vol</a>
-      <a class="btn" href="outils/">Boîte à outils</a>
+      <a class="btn hot" href="pilote/">Je suis pilote</a>
+      <a class="btn hot" href="metier/" style="background:var(--violet);border-color:var(--violet);box-shadow:0 8px 26px -8px rgba(139,92,255,.7)">Je suis assistant de vol</a>
+      <a class="btn" href="#actus">Les actualités</a>
     </div>
   </div>
   <a class="scroll-cue" href="#actus">Défiler</a>
@@ -59,17 +61,42 @@
 
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
-    <span>SPA.HEMS.130</span><span>Membre d'équipage technique</span><span>ORO.TC</span><span>55 bases</span><span>NVIS</span><span>Anti-collision</span><span>Aire de poser</span><span>H24</span><span>Check-lists</span>
-    <span>SPA.HEMS.130</span><span>Membre d'équipage technique</span><span>ORO.TC</span><span>55 bases</span><span>NVIS</span><span>Anti-collision</span><span>Aire de poser</span><span>H24</span><span>Check-lists</span>
+    <span>SPA.HEMS.130</span><span>Commandant de bord</span><span>Membre d'équipage technique</span><span>ORO.TC</span><span>55 bases</span><span>NVIS</span><span>Minimums réduits</span><span>Aire de poser</span><span>H24</span>
+    <span>SPA.HEMS.130</span><span>Commandant de bord</span><span>Membre d'équipage technique</span><span>ORO.TC</span><span>55 bases</span><span>NVIS</span><span>Minimums réduits</span><span>Aire de poser</span><span>H24</span>
   </div>
 </div>
 
 <main>
-  <section class="block wrap" aria-label="Le métier en chiffres">
+  <section class="block wrap" aria-labelledby="t-doors">
+    <div class="sh" style="--c:var(--cyan)">
+      <span class="k">Deux sièges à l'avant</span>
+      <h2 id="t-doors">Par quelle porte <em>entrez-vous</em> ?</h2>
+    </div>
+    <div class="doors">
+      <a class="door card" href="pilote/" style="--c:var(--cyan)">
+        <span class="door-k">Siège de gauche</span>
+        <h3>Pilote</h3>
+        <p>Licences, 1 000 heures de commandant de bord, nuit et NVIS, contrôles, minimums météo, salaire conventionnel.</p>
+        <ul><li>Devenir pilote héliSMUR</li><li>Fiches réglementaires pilotes</li><li>Grille et primes</li></ul>
+        <span class="more">Entrer côté pilote →</span>
+        <svg class="door-ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="32" cy="32" r="4" fill="currentColor"/><path d="M10 32h18M36 32h18M32 36v18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+      </a>
+      <a class="door card" href="metier/" style="--c:var(--pink)">
+        <span class="door-k">Siège de droite</span>
+        <h3>Assistant de vol</h3>
+        <p>Membre d'équipage technique : quatre tâches, formation sans licence, médical, statut de navigant, salaire, comment entrer.</p>
+        <ul><li>Devenir assistant de vol</li><li>Fiches réglementaires TCM</li><li>Grille et primes</li></ul>
+        <span class="more">Entrer côté TCM →</span>
+        <svg class="door-ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8a24 24 0 1 0 0 48a24 24 0 1 0 0-48Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M26 18h12v8h8v12h-8v8H26v-8h-8V26h8z" fill="currentColor"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="block wrap" aria-label="Les métiers en chiffres" style="padding-top:0">
     <div class="bigstats">
       <div class="bigstat" style="--c:var(--pink)"><b data-count="55">55</b><span>bases héliSMUR en France</span></div>
       <div class="bigstat" style="--c:var(--cyan)"><b data-count="2016" data-from="1990">2016</b><span>naissance du métier, le 1<sup>er</sup> janvier</span></div>
-      <div class="bigstat" style="--c:var(--amber)"><b data-count="4">4</b><span>tâches principales fixées par l'EASA</span></div>
+      <div class="bigstat" style="--c:var(--amber)"><b data-count="1000" data-from="0">1000</b><span>heures de commandant de bord, repère d'expérience du pilote SMUH</span></div>
       <div class="bigstat" style="--c:var(--green)"><b data-count="2000" data-from="0">2000</b><span>heures de service par an, au maximum</span></div>
     </div>
   </section>
@@ -89,8 +116,8 @@
     <div class="wrap frise-head">
       <div class="sh" style="--c:var(--cyan);margin:0">
         <span class="k">2011 → 2028</span>
-        <h2 id="t-frise">Un métier né d'une <em>contrainte</em></h2>
-        <p>Personne ne l'avait réclamé. Dix ans plus tard, c'est une profession. Faites défiler.</p>
+        <h2 id="t-frise">Un équipage né d'une <em>contrainte</em></h2>
+        <p>Le passage au deuxième membre d'équipage, puis la structuration des deux métiers. Faites défiler.</p>
       </div>
     </div>
     <div class="frise-rail">
@@ -102,6 +129,7 @@
       <article class="step" style="--c:var(--amber)"><div class="yr">2018</div><h3>Navigant technique</h3><p>L'arrêté du 2 octobre fait basculer le TCM au 3° de l'article L. 6521-1. La convention collective peut l'accueillir.</p></article>
       <article class="step" style="--c:var(--green)"><div class="yr">2019</div><h3>Première grille de salaire</h3><p>L'accord du 5 juillet crée la grille TCM et finance le parcours vers le PPL hélicoptère.</p></article>
       <article class="step" style="--c:var(--cyan)"><div class="yr">2023</div><h3>Quatre tâches, un vrai référentiel</h3><p>Lecture des check-lists, programme de formation complet, minimums réduits liés à un TCM assis à l'avant.</p></article>
+      <article class="step" style="--c:var(--amber)"><div class="yr">2025</div><h3>Les pilotes obtiennent un accord</h3><p>Après une grève des pilotes héliSMUR, une médiation des ministères aboutit à un accord le 30 juillet entre syndicats et employeurs.</p></article>
       <article class="step" style="--c:var(--violet)"><div class="yr">2026</div><h3>Nouvelle grille, réforme en débat</h3><p>Avenants étendus à tout le secteur. Le contrat territorial du secours d'urgence fait débat.</p></article>
       <article class="step" style="--c:var(--pink)"><div class="yr">2028</div><h3>Pilote automatique de nuit</h3><p>Échéance de l'obligation en monopilote de nuit, dernière étape du cadre européen de 2023.</p></article>
     </div>
@@ -111,20 +139,20 @@
   <section class="block wrap" aria-labelledby="t-explorer">
     <div class="sh" style="--c:var(--violet)">
       <span class="k">Explorer</span>
-      <h2 id="t-explorer">Comprendre le métier, <em>préparer le vol</em></h2>
+      <h2 id="t-explorer">Comprendre les règles, <em>préparer le vol</em></h2>
     </div>
     <div class="grid3">
       <a class="card card-xl" href="reglementation/" style="--c:var(--amber)">
         <div class="ill big-ico"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M11 5h20l8 8v30H11Z" fill="#f2f0ff"/><path d="M31 5v8h8" fill="#c9c3ff"/><g stroke="#ffb547" stroke-width="2.6" stroke-linecap="round"><path d="M16 21h17M16 27h17M16 33h11"/></g></svg></div>
         <div style="display:grid;gap:10px"><h3>Réglementation</h3>
-        <p>SPA.HEMS, ORO.TC, AMC et GM : les quatre tâches, la formation, le médical, le temps de service et la grille de salaire, en fiches courtes.</p></div>
+        <p>SPA.HEMS, ORO.TC, AMC et GM, en fiches courtes filtrables : communes, pilotes, assistants de vol. Avec les textes officiels.</p></div>
         <span class="more">Lire les fiches →</span>
       </a>
-      <a class="card card-xl" href="metier/" style="--c:var(--pink)">
-        <div class="ill big-ico"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="17" r="9" fill="#f2f0ff"/><path d="M8 44c1-10 8-15 16-15s15 5 16 15Z" fill="#ff3d8b"/><rect x="16" y="13" width="16" height="6" rx="3" fill="#3ee3ff"/></svg></div>
-        <div style="display:grid;gap:10px"><h3>Le métier</h3>
-        <p>Ce que disent vraiment les textes, comment on y entre, ce que l'on gagne et ce qui coince. Un long format écrit par un assistant de vol en poste.</p></div>
-        <span class="more">Lire l'article →</span>
+      <a class="card card-xl" href="bases/" style="--c:var(--green)">
+        <div class="ill big-ico"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 44s14-13 14-24a14 14 0 0 0-28 0c0 11 14 24 14 24Z" fill="#4ff0a6"/><circle cx="24" cy="20" r="6" fill="#0a0920"/></svg></div>
+        <div style="display:grid;gap:10px"><h3>Carte des bases</h3>
+        <p>Où sont les hélicoptères du SAMU ? Ville, SAMU, appareil et exploitant quand une source les confirme. La carte se complète chaque semaine.</p></div>
+        <span class="more">Voir la carte →</span>
       </a>
       <a class="card card-xl" href="outils/" style="--c:var(--cyan)">
         <div class="ill big-ico"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="26" r="16" fill="none" stroke="#f2f0ff" stroke-width="3"/><path d="M24 26V16M24 26l7 5" stroke="#3ee3ff" stroke-width="3" stroke-linecap="round"/><rect x="20" y="4" width="8" height="5" rx="2" fill="#f2f0ff"/></svg></div>
@@ -140,16 +168,16 @@
       <figure class="siege-photo" style="margin:0" data-reveal="scale"><img src="assets/hero.jpg" alt="Un pilote et une assistante de vol en casque jaune, visière baissée, sur fond rose néon" loading="lazy" width="720" height="1279"></figure>
       <div>
         <div class="sh" style="--c:var(--pink);margin:0">
-          <span class="k">En deux phrases</span>
-          <h2 id="t-quoi">Qui est assis <em>à côté du pilote</em> ?</h2>
-          <p>Depuis 2016, l'hélicoptère du SAMU vole avec un pilote et un membre d'équipage technique, salarié de l'exploitant privé et non de l'hôpital. Il assiste le commandant de bord pour l'anti-collision, l'aire de poser, les obstacles et les check-lists, puis aide l'équipe médicale au sol.</p>
+          <span class="k">Qui fait quoi</span>
+          <h2 id="t-quoi">Deux sièges à l'avant, <em>un équipage</em></h2>
+          <p>Depuis 2016, l'hélicoptère du SAMU vole avec un pilote et un membre d'équipage technique, tous deux salariés de l'exploitant privé et non de l'hôpital. Derrière eux, l'équipe médicale du SMUR.</p>
         </div>
         <div class="names">
-          <div style="--c:var(--pink)"><b>Membre d'équipage technique</b><span>le nom réglementaire européen</span></div>
-          <div style="--c:var(--cyan)"><b>TCM</b><span>de l'anglais <i>technical crew member</i>, celui qu'on entend sur les bases</span></div>
-          <div style="--c:var(--amber)"><b>Assistant de vol</b><span>le terme du ministère de la Santé</span></div>
+          <div style="--c:var(--cyan)"><b>Commandant de bord</b><span>le pilote : il décide du vol, de la météo et de l'aire de poser, et porte la responsabilité de la machine</span></div>
+          <div style="--c:var(--pink)"><b>Assistant de vol · TCM</b><span>le membre d'équipage technique : anti-collision, aire de poser, obstacles, check-lists, puis assistance au sol</span></div>
+          <div style="--c:var(--amber)"><b>Équipe médicale</b><span>médecin, infirmier, ambulancier du SMUR : des « passagers médicaux », salariés de l'hôpital</span></div>
         </div>
-        <div class="btns" style="margin-top:22px"><a class="btn hot" href="reglementation/#taches">Les quatre tâches →</a></div>
+        <div class="btns" style="margin-top:22px"><a class="btn hot" href="reglementation/#equipage">La composition d'équipage →</a></div>
       </div>
     </div>
   </section>
@@ -158,15 +186,17 @@
 <footer class="site-foot">
   <div class="wrap">
     <div>
-      <b>Assistant de vol SMUH</b>
-      <p>Site indépendant et non officiel, tenu par un assistant de vol héliSMUR. Il n'engage aucun exploitant ni aucun établissement de santé.</p>
-      <p>Les textes officiels (EUR-Lex, EASA, Légifrance, SIA, Météo-France) font toujours foi.</p>
+      <b>Équipage héliSMUR</b>
+      <p>Site indépendant et non officiel sur les équipages des hélicoptères du SAMU : pilotes et assistants de vol. Il n'engage aucun exploitant ni aucun établissement de santé.</p>
+      <p>Les textes officiels (EUR-Lex, EASA, Légifrance, SIA, Météo-France) et le manuel d'exploitation de chaque entreprise font toujours foi.</p>
     </div>
     <div>
       <b>Le site</b>
       <a href="actualites/">Actualités</a>
       <a href="reglementation/">Réglementation</a>
-      <a href="metier/">Le métier</a>
+      <a href="pilote/">Devenir pilote</a>
+      <a href="metier/">Devenir assistant de vol</a>
+      <a href="bases/">Carte des bases</a>
       <a href="outils/">Boîte à outils</a>
     </div>
     <div>

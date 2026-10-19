@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Boîte à outils des assistants de vol héliSMUR : briefing météo, NOTAM, AZBA, nuit aéronautique, conversion de coordonnées GPS, heures décimales jour / nuit, kéro litres en kilos.">
+<meta name="description" content="Boîte à outils des équipages héliSMUR, pilotes et assistants de vol : briefing météo, NOTAM, AZBA, nuit aéronautique, conversion de coordonnées GPS, heures décimales jour / nuit, kéro litres en kilos.">
 <meta name="theme-color" content="#0b0a1e">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff3d8b'/%3E%3Cpath d='M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z' fill='%23fff'/%3E%3C/svg%3E">
-<title>Boîte à outils · Assistant de vol SMUH</title>
+<title>Boîte à outils · Équipage héliSMUR</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <style>
@@ -256,19 +256,30 @@ li.ck:hover>input.cb{border-color:var(--c,var(--ink))}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
-<style>footer a{color:var(--ink)}</style>
+<style>footer a{color:var(--ink)}
+.navgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+@media (max-width:760px){.navgrid{grid-template-columns:1fr}}
+.navres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:620px){.navres{grid-template-columns:1fr}}
+.navres div{padding:14px 16px;border-radius:16px;background:var(--well);border:1px solid var(--line);display:grid;gap:2px}
+.navres span{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.navres b{font-family:var(--f-mono);font-size:1.6rem;font-weight:600;color:var(--green);font-variant-numeric:tabular-nums}
+.navres small{color:var(--muted);font-size:.8rem}
+</style>
 </head>
 <body>
 
 
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="../"><i>✚</i><span>Assistant de vol</span></a>
+    <a class="logo" href="../"><i>✚</i><span>Équipage héliSMUR</span></a>
     <nav class="navl" aria-label="Site">
       <a href="../">Accueil</a>
       <a href="../actualites/">Actualités</a>
       <a href="../reglementation/">Réglementation</a>
-      <a href="../metier/">Le métier</a>
+      <a href="../pilote/">Pilote</a>
+      <a href="../metier/">Assistant de vol</a>
+      <a href="../bases/">Bases</a>
       <a href="./" aria-current="page" style="color:var(--ink);background:var(--card)">Outils</a>
     </nav>
     <span class="navclock" id="nUtc">--:--Z</span>
@@ -279,7 +290,7 @@ li.ck:hover>input.cb{border-color:var(--c,var(--ink))}
 
 <section class="hero">
   <div>
-    <div class="eyebrow">HéliSMUR · assistants de vol</div>
+    <div class="eyebrow">HéliSMUR · pilotes et assistants de vol</div>
     <h1>Du briefing au <em>retour de mission</em>.</h1>
     <p class="lead">Les sites officiels et les calculs du quotidien, rangés dans l'ordre de la journée : briefing, déclenchement, retour de mission.</p>
     <div class="flow">
@@ -394,7 +405,7 @@ li.ck:hover>input.cb{border-color:var(--c,var(--ink))}
     <span class="idx">02</span>
     <span class="k">Déclenchement</span>
     <h2>Localiser et préparer</h2>
-    <p>Situer l'intervention et convertir les coordonnées reçues dans le format attendu.</p>
+    <p>Situer l'intervention, convertir les coordonnées reçues, estimer distance, route et temps de vol.</p>
   </div>
 
   <div class="loc">
@@ -417,6 +428,25 @@ li.ck:hover>input.cb{border-color:var(--c,var(--ink))}
       <div class="res" id="gRes"></div>
     </article>
   </div>
+
+  <article class="card" style="--c:var(--green);margin-top:16px" id="nav-tool">
+    <div class="top">
+      <div class="ill"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" fill="none" stroke="#5cf0ad" stroke-width="2.6"/><path d="M24 9l5 15-5 15-5-15z" fill="#f3f1ff"/><circle cx="24" cy="24" r="2.6" fill="#0b0a1e"/></svg></div>
+      <div><span class="tag">Outil</span><h3>Distance, route et temps de vol</h3></div>
+    </div>
+    <div class="navgrid">
+      <label class="f" for="dFrom">Départ<select id="dFrom"></select></label>
+      <label class="f" for="dFromC" id="dFromWrap" hidden>Coordonnées du départ<input id="dFromC" value="47.4698, -0.5531" autocomplete="off"></label>
+      <label class="f" for="dTo">Arrivée (coordonnées)<input id="dTo" value="47.2181, -1.5534" autocomplete="off"></label>
+      <label class="f" for="dSpd">Vitesse sol (kt)<input id="dSpd" value="130" inputmode="numeric"></label>
+    </div>
+    <div class="navres">
+      <div><span>Distance</span><b id="dNm">–</b><small id="dKm"></small></div>
+      <div><span>Route vraie</span><b id="dCrs">–</b><small>Déclinaison non appliquée</small></div>
+      <div><span>Temps de vol</span><b id="dEte">–</b><small id="dEteDec"></small></div>
+    </div>
+    <p class="hint">Orthodromie entre deux points, sans vent ni procédure. Pour se faire une idée au déclenchement : la préparation du vol et le PVE font foi.</p>
+  </article>
 
 </section>
 
@@ -514,7 +544,7 @@ li.ck:hover>input.cb{border-color:var(--c,var(--ink))}
   </div>
 </section>
 
-<footer>Outil d'aide non officiel. Le manuel d'exploitation de votre entreprise, le SIA et Météo-France font foi. · <a href="../">Assistant de vol SMUH</a></footer>
+<footer>Outil d'aide non officiel. Le manuel d'exploitation de votre entreprise, le SIA et Météo-France font foi. · <a href="../">Équipage héliSMUR</a></footer>
 </main>
 
 <script>
@@ -620,6 +650,25 @@ function renderGps(){const r=$('gRes'),c=parseCoords($('gIn').value);r.innerHTML
     d.querySelector('span').textContent=k;d.querySelector('code').textContent=v;
     const b=d.querySelector('button');b.addEventListener('click',()=>copy(b,v,'Copier'));r.appendChild(d);});}
 $('gIn').addEventListener('input',renderGps);renderGps();
+/* Distance, route et temps de vol */
+(function(){
+  const sel=$('dFrom');if(!sel)return;
+  BASES.forEach((b,i)=>{const o=document.createElement('option');o.value=i;o.textContent=b[0];sel.appendChild(o);});
+  sel.value=store.get('smuh_nav_from',0);
+  function calc(){const b=BASES[+sel.value];$('dFromWrap').hidden=b[1]!=null;store.set('smuh_nav_from',+sel.value);
+    const a=b[1]!=null?[b[1],b[2]]:parseCoords($('dFromC').value),z=parseCoords($('dTo').value),v=num($('dSpd').value);
+    if(!a||!z){['dNm','dCrs','dEte'].forEach(id=>$(id).textContent='–');$('dKm').textContent='Coordonnées non reconnues';$('dEteDec').textContent='';return;}
+    const R=Math.PI/180,f1=a[0]*R,f2=z[0]*R,dl=(z[1]-a[1])*R;
+    const h=Math.sin((f2-f1)/2)**2+Math.cos(f1)*Math.cos(f2)*Math.sin(dl/2)**2;
+    const km=6371.0088*2*Math.asin(Math.min(1,Math.sqrt(h))),nm=km/1.852;
+    const brg=(Math.atan2(Math.sin(dl)*Math.cos(f2),Math.cos(f1)*Math.sin(f2)-Math.sin(f1)*Math.cos(f2)*Math.cos(dl))/R+360)%360;
+    $('dNm').textContent=nm.toFixed(1).replace('.',',')+' NM';$('dKm').textContent=Math.round(km)+' km';
+    $('dCrs').textContent=String(Math.round(brg)%360).padStart(3,'0')+'°';
+    if(v>0){const min=Math.round(nm/v*60);$('dEte').textContent=Math.floor(min/60)+' h '+String(min%60).padStart(2,'0');$('dEteDec').textContent=(nm/v).toFixed(2).replace('.',',')+' h à '+v+' kt';}
+    else{$('dEte').textContent='–';$('dEteDec').textContent='';}}
+  ['input','change'].forEach(e=>[sel,$('dFromC'),$('dTo'),$('dSpd')].forEach(el=>el.addEventListener(e,calc)));calc();
+})();
+
 
 /* Heures <-> décimal */
 function parseHM(s){s=String(s).trim().replace(/[hH]/,':');if(!s)return null;

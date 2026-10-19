@@ -320,3 +320,21 @@ body{position:relative}
 @media (max-width:620px){.names div{grid-template-columns:1fr;gap:4px}}
 
 body:not(.home) main,body:not(.home) .site-foot{position:relative;z-index:1}
+
+/* Étiquettes de public */
+.aud{display:inline-block;vertical-align:middle;margin-left:10px;font-family:var(--f-mono);font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:6px;border:1px solid var(--stroke);color:var(--muted)}
+.news-meta .aud{margin-left:0}
+.aud-pilote{color:var(--cyan);border-color:rgba(62,227,255,.45);background:rgba(62,227,255,.08)}
+.aud-tcm{color:var(--pink);border-color:rgba(255,61,139,.45);background:rgba(255,61,139,.08)}
+.fiche[hidden]{display:none}
+
+/* Deux portes d'entrée */
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.doors{grid-template-columns:1fr}}
+.door{min-height:360px;padding:32px;align-content:start;gap:14px;background:linear-gradient(150deg,color-mix(in srgb,var(--c) 16%,transparent),rgba(255,255,255,.02) 60%)}
+.door h3{font-size:clamp(2rem,4.4vw,3.2rem);line-height:1}
+.door-k{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--c)}
+.door ul{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:6px;color:var(--ink);font-weight:600;font-size:.95rem}
+.door ul li::before{content:"→ ";color:var(--c)}
+.door .more{margin-top:auto;font-size:1rem}
+.door-ico{position:absolute;right:-18px;bottom:-18px;width:180px;height:180px;color:var(--c);opacity:.14;transform:rotate(-8deg)}

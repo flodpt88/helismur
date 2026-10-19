@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Carte des bases héliSMUR · Équipage héliSMUR</title>
+<meta name="description" content="Carte interactive des bases d'hélicoptères du SAMU en France : ville, SAMU, exploitant, appareil, horaires, avec la source de chaque information.">
+<meta name="theme-color" content="#0a0920">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff3d8b'/%3E%3Cpath d='M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+.map-wrap{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:stretch}
+@media (max-width:900px){.map-wrap{grid-template-columns:1fr}}
+#map{height:min(72vh,680px);min-height:420px;border-radius:24px;border:1px solid var(--stroke);overflow:hidden;background:#0d0b26}
+.leaflet-container{font-family:var(--f-body)}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#141238;color:var(--ink);border:1px solid var(--stroke);box-shadow:0 20px 60px -20px rgba(0,0,0,.8)}
+.leaflet-popup-content{margin:14px 16px;line-height:1.5;font-size:.9rem}
+.leaflet-popup-content b{font-family:var(--f-display);font-size:1rem}
+.leaflet-popup-content a{color:var(--cyan)}
+.leaflet-control-attribution{background:rgba(10,9,32,.7)!important;color:var(--muted)!important}
+.leaflet-control-attribution a{color:var(--muted)!important}
+.leaflet-bar a{background:#141238;color:var(--ink);border-color:var(--stroke)}
+.pin{width:18px;height:18px;border-radius:50%;background:var(--pink);border:3px solid #fff;box-shadow:0 0 0 6px rgba(255,61,139,.25),0 0 22px rgba(255,61,139,.9);animation:ping 2.4s ease-out infinite}
+.pin.sais{background:var(--amber);box-shadow:0 0 0 6px rgba(255,181,71,.25),0 0 22px rgba(255,181,71,.9)}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(255,61,139,.55),0 0 22px rgba(255,61,139,.9)}100%{box-shadow:0 0 0 18px rgba(255,61,139,0),0 0 22px rgba(255,61,139,.9)}}
+.blist{display:grid;gap:8px;max-height:min(72vh,680px);overflow:auto;padding-right:4px}
+.bitem{display:grid;gap:4px;text-align:left;padding:12px 14px;border-radius:16px;background:var(--glass);border:1px solid var(--stroke);cursor:pointer;color:var(--ink);font:inherit}
+.bitem:hover,.bitem.on{border-color:var(--pink);background:var(--glass-2)}
+.bitem b{font-weight:800}
+.bitem small{color:var(--muted);font-size:.82rem}
+.bitem .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip-s{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.06em;padding:3px 8px;border-radius:6px;background:rgba(0,0,0,.25);border:1px solid var(--stroke);color:var(--muted)}
+.search{margin-bottom:10px}
+.search input{width:100%;font:600 .95rem var(--f-body);color:var(--ink);background:rgba(0,0,0,.25);border:1px solid var(--stroke);border-radius:14px;padding:12px 14px}
+.counter{display:flex;gap:18px;flex-wrap:wrap;margin:18px 0 22px}
+.counter div{padding:12px 16px;border-radius:16px;background:var(--glass);border:1px solid var(--stroke)}
+.counter b{font-family:var(--f-display);font-size:1.5rem;display:block;color:var(--c)}
+.counter span{font-size:.82rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="../"><i>✚</i><span>Équipage héliSMUR<small>Pilotes · Assistants de vol</small></span></a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav">
+      <a href="../">Accueil</a>
+      <a href="../actualites/">Actualités</a>
+      <a href="../reglementation/">Réglementation</a>
+      <a href="../pilote/">Pilote</a>
+      <a href="../metier/">Assistant de vol</a>
+      <a href="../bases/" aria-current="page">Bases</a>
+      <a href="../outils/">Outils</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="page-head">
+    <div class="eyebrow" style="--c:var(--green)">// Carte en construction</div>
+    <h1>Les bases <em>héliSMUR</em></h1>
+    <p class="lead">Où sont les hélicoptères du SAMU ? Chaque base affichée est confirmée par une source, citée dans sa fiche. Exploitants et appareils changent au gré des marchés : ils ne sont indiqués que lorsqu'une source récente les confirme.</p>
+    <div class="counter">
+      <div style="--c:var(--pink)"><b id="nbOk">–</b><span>bases confirmées sur la carte</span></div>
+      <div style="--c:var(--cyan)"><b>55</b><span>bases héliSMUR en France</span></div>
+      <div style="--c:var(--amber)"><b id="nbUp">–</b><span>dernière mise à jour</span></div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:8px">
+    <div class="map-wrap">
+      <div id="map" role="region" aria-label="Carte des bases"></div>
+      <div>
+        <div class="search"><input id="q" type="search" placeholder="Chercher une ville, un SAMU, un exploitant…" aria-label="Chercher une base"></div>
+        <div class="blist" id="list"></div>
+      </div>
+    </div>
+    <div class="card" style="--c:var(--green);margin-top:22px">
+      <h3>Votre base manque, ou une info est fausse ?</h3>
+      <p>La carte se complète au fil des actualités et des contributions. Ville, numéro de SAMU, exploitant, appareil, horaires de jour ou H24 : signalez ce que vous savez, avec une source si possible.</p>
+      <div class="btns"><a class="btn hot" href="https://github.com/flodpt88/helismur/issues/new?title=Base%20h%C3%A9liSMUR%20%3A%20&body=Ville%20%3A%0ASAMU%20%3A%0AExploitant%20%3A%0AAppareil%20%3A%0AHoraires%20%3A%0ASource%20%3A" target="_blank" rel="noopener">Signaler une base</a></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div>
+      <b>Équipage héliSMUR</b>
+      <p>Site indépendant et non officiel sur les équipages des hélicoptères du SAMU : pilotes et assistants de vol. Il n'engage aucun exploitant ni aucun établissement de santé.</p>
+      <p>Les textes officiels (EUR-Lex, EASA, Légifrance, SIA, Météo-France) et le manuel d'exploitation de chaque entreprise font toujours foi.</p>
+    </div>
+    <div>
+      <b>Le site</b>
+      <a href="../actualites/">Actualités</a>
+      <a href="../reglementation/">Réglementation</a>
+      <a href="../pilote/">Devenir pilote</a>
+      <a href="../metier/">Devenir assistant de vol</a>
+      <a href="../bases/">Carte des bases</a>
+      <a href="../outils/">Boîte à outils</a>
+    </div>
+    <div>
+      <b>Sources officielles</b>
+      <a href="https://www.easa.europa.eu/en/document-library/general-publications/easy-access-rules-air-operations" target="_blank" rel="noopener">EASA · Easy Access Rules</a>
+      <a href="https://www.sia.aviation-civile.gouv.fr/" target="_blank" rel="noopener">SIA</a>
+      <a href="https://bea.aero/" target="_blank" rel="noopener">BEA</a>
+      <a href="https://www.samu-urgences-de-france.fr/" target="_blank" rel="noopener">Samu-Urgences de France</a>
+    </div>
+  </div>
+</footer>
+<script src="../assets/vendor/leaflet/leaflet.js"></script>
+<script src="../assets/site.js"></script>
+<script>
+(function(){
+  var MOIS=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  var map=L.map('map',{zoomControl:true,scrollWheelZoom:false,attributionControl:true}).setView([46.7,2.4],6);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:12,subdomains:'abcd',
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
+  map.on('click',function(){ map.scrollWheelZoom.enable(); });
+  fetch('../data/bases.json',{cache:'no-cache'}).then(function(r){return r.json();}).then(function(d){
+    var bases=d.bases||[], markers={}, list=document.getElementById('list');
+    document.getElementById('nbOk').textContent=bases.length;
+    if(d.updated){var p=d.updated.split('-');document.getElementById('nbUp').textContent=(+p[2])+' '+MOIS[+p[1]-1];}
+    function popup(b){
+      var rows=[];
+      rows.push('<b>'+esc(b.ville)+'</b><br>SAMU '+esc(b.samu)+' · '+esc(b.region));
+      if(b.appareil) rows.push('Appareil : '+esc(b.appareil));
+      if(b.exploitant) rows.push('Exploitant : '+esc(b.exploitant));
+      if(b.horaires) rows.push('Horaires : '+esc(b.horaires));
+      rows.push(b.url?'Source : <a href="'+esc(b.url)+'" target="_blank" rel="noopener">'+esc(b.source)+' ↗</a>':'Source : '+esc(b.source));
+      return rows.join('<br>');
+    }
+    var metro=[];
+    bases.forEach(function(b){
+      var sais=/saison/i.test(b.horaires||'');
+      var icon=L.divIcon({className:'',html:'<div class="pin'+(sais?' sais':'')+'"></div>',iconSize:[18,18],iconAnchor:[9,9]});
+      var m=L.marker([b.lat,b.lon],{icon:icon,title:b.ville}).addTo(map).bindPopup(popup(b));
+      markers[b.id]=m; if(!b.outremer) metro.push([b.lat,b.lon]);
+    });
+    if(metro.length) map.fitBounds(metro,{padding:[30,30]});
+    function render(q){
+      q=(q||'').toLowerCase();
+      list.innerHTML='';
+      bases.filter(function(b){ return !q || [b.ville,b.samu,b.region,b.exploitant,b.appareil].join(' ').toLowerCase().indexOf(q)>=0; })
+        .sort(function(a,b){ return a.ville.localeCompare(b.ville,'fr'); })
+        .forEach(function(b){
+          var el=document.createElement('button'); el.type='button'; el.className='bitem';
+          el.innerHTML='<b>'+esc(b.ville)+'</b><small>SAMU '+esc(b.samu)+' · '+esc(b.region)+(b.outremer?' · outre-mer':'')+'</small><div class="row">'+
+            (b.appareil?'<span class="chip-s">'+esc(b.appareil)+'</span>':'')+(b.exploitant?'<span class="chip-s">'+esc(b.exploitant)+'</span>':'')+(b.horaires?'<span class="chip-s">'+esc(b.horaires)+'</span>':'')+'</div>';
+          el.addEventListener('click',function(){
+            list.querySelectorAll('.bitem').forEach(function(x){x.classList.remove('on');}); el.classList.add('on');
+            map.flyTo([b.lat,b.lon], b.outremer?8:9, {duration:1.1}); markers[b.id].openPopup();
+            if(innerWidth<900) document.getElementById('map').scrollIntoView({behavior:'smooth',block:'center'});
+          });
+          list.appendChild(el);
+        });
+    }
+    render(''); document.getElementById('q').addEventListener('input',function(e){ render(e.target.value); });
+  }).catch(function(){ document.getElementById('list').innerHTML='<p class="muted">Impossible de charger les bases.</p>'; });
+})();
+</script>
+</body>
+</html>
