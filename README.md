@@ -26,3 +26,10 @@ Ajouter un objet en tête de `items` dans `data/news.json` et mettre à jour `up
 ```
 
 Publié avec GitHub Pages (branche `main`, racine).
+
+## Effets
+
+- `assets/hero3d.js` : scène 3D de l'accueil (Three.js + bloom), hélicoptère construit en code, relief néon calculé sur le GPU. Repli sur la photo si WebGL est indisponible ; image fixe si l'utilisateur a demandé moins d'animations.
+- `assets/home.js` : frise 2011 → 2028 épinglée en défilement horizontal (GSAP ScrollTrigger), parallaxe de la photo.
+- `assets/site.js` : apparitions au scroll, cartes en tilt 3D, halo du curseur, compteurs, fond néon des pages intérieures.
+- Bibliothèques embarquées dans `assets/vendor/` (Three.js r169, GSAP 3.12), sans dépendance à un CDN.
