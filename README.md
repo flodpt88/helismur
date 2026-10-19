@@ -34,9 +34,6 @@ Ajouter un objet en tête de `items` dans `data/news.json` et mettre à jour `up
 
 Dans `data/bases.json`, une entrée par base confirmée par une source (ville, samu, region, lat, lon, exploitant, appareil, horaires, source, url). Exploitant et appareil seulement si une source récente les confirme.
 
-```text
-```
-
 Publié avec GitHub Pages (branche `main`, racine).
 
 ## Effets
