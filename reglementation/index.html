@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Réglementation SMUH, pilotes et assistants de vol · Équipage héliSMUR</title>
-<meta name="description" content="La réglementation du membre d'équipage technique SMUH en fiches : composition d'équipage, quatre tâches, minimums réduits, formation ORO.TC, médical, statut navigant, temps de service, convention collective.">
+<meta name="description" content="La réglementation SMUH des pilotes et des assistants de vol en fiches : composition d'équipage, minimums météo, nuit et NVIS, expérience du commandant de bord, contrôles, temps de service, salaires, tâches et formation du TCM.">
 <meta name="theme-color" content="#0a0920">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff3d8b'/%3E%3Cpath d='M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,7 +44,6 @@
       <button type="button" aria-pressed="false" data-a="tcm">Assistants de vol</button>
     </div>
     <div class="fiches">
-
       <details class="fiche" id="lire" data-aud="commun" style="--c:var(--cyan)" open>
         <summary><span class="ref">Mode d'emploi</span><div><h3>Lire un texte aéronautique</h3><small>Règlement, AMC, GM : trois niveaux qui n'ont pas la même force</small></div><span class="chev">⌄</span></summary>
         <div class="inner prose">
@@ -57,7 +56,6 @@
           <div class="src"><a href="https://www.easa.europa.eu/en/document-library/general-publications/easy-access-rules-air-operations" target="_blank" rel="noopener">EASA · Easy Access Rules Air Operations ↗</a><a href="https://eur-lex.europa.eu/eli/reg/2012/965/oj" target="_blank" rel="noopener">Règlement (UE) 965/2012 ↗</a></div>
         </div>
       </details>
-
       <details class="fiche" id="equipage" data-aud="commun" style="--c:var(--pink)">
         <summary><span class="ref">SPA.HEMS.130 e) 1)</span><div><h3>Composition d'équipage</h3><small>Deux pilotes, ou un pilote et un membre d'équipage technique</small></div><span class="chev">⌄</span></summary>
         <div class="inner prose">
@@ -67,9 +65,149 @@
           <div class="src"><a href="https://www.easa.europa.eu/en/document-library/general-publications/easy-access-rules-air-operations" target="_blank" rel="noopener">Part-SPA, sous-partie J ↗</a></div>
         </div>
       </details>
-
+      <details class="fiche" id="minimums" data-aud="commun" style="--c:var(--violet)">
+        <summary><span class="ref">SPA.HEMS.120 · AMC1 SPA.HEMS.120(a)</span><div><h3>Minimums météo</h3><small>Plafond, visibilité, et l'équipage qui permet de les réduire</small></div><span class="chev">⌄</span></summary>
+        <div class="inner prose">
+          <p>Les vols SMUH en VFR respectent des minimums propres, au départ comme en route. De jour, le tableau de l'AMC1 SPA.HEMS.120(a) fixe :</p>
+          <div class="table-scroll">
+            <table class="pay">
+              <thead><tr><th>Jour · plafond</th><th>Visibilité</th></tr></thead>
+              <tbody>
+                <tr><td>500 ft et plus</td><td class="n">Minimums VFR de l'espace aérien</td></tr>
+                <tr><td>499 à 300 ft</td><td class="n">1 500 m</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>En route, la visibilité peut descendre brièvement à 800 m en vue du sol. De nuit, les minimums sont nettement plus élevés (plafond de l'ordre de 1 200 ft et plus, visibilité de plusieurs kilomètres) et diffèrent selon l'emploi des jumelles de vision nocturne : se reporter au tableau officiel.</p>
+          <p><strong>Météo sous les minimums en route</strong> : un hélicoptère certifié VMC seulement abandonne le vol ou rentre ; un hélicoptère certifié IFR peut aussi poursuivre aux instruments si l'équipage est qualifié (SPA.HEMS.120(b)).</p>
+          <p><strong>Minimums réduits</strong> (SPA.HEMS.120(c)) : depuis 2023, ils sont réservés à l'exploitation multipilote, ou au monopilote avec un TCM qualifié assis à l'avant, formé à la navigation, aux communications et à la surveillance des paramètres (AMC1 SPA.HEMS.120(c)(2)).</p>
+          <p class="muted">Le manuel d'exploitation de chaque entreprise fixe les valeurs applicables et peut être plus restrictif.</p>
+          <div class="src"><a href="https://www.easa.europa.eu/sites/default/files/dfu/AMC___GM_to_Part-SPA_-_Issue_1__Amendment_14__corrected_.pdf" target="_blank" rel="noopener">EASA · AMC &amp; GM Part-SPA ↗</a><a href="https://eur-lex.europa.eu/eli/reg_impl/2023/1020/oj" target="_blank" rel="noopener">Règlement (UE) 2023/1020 ↗</a></div>
+        </div>
+      </details>
+      <details class="fiche" id="nuit" data-aud="commun" style="--c:var(--violet)">
+        <summary><span class="ref">SPA.HEMS.130(e)(2) · SPA.NVIS</span><div><h3>Vol de nuit et NVIS</h3><small>Équipage, expérience de nuit, jumelles de vision nocturne</small></div><span class="chev">⌄</span></summary>
+        <div class="inner prose">
+          <p><strong>Équipage de nuit</strong> : deux pilotes, ou un pilote et un TCM. Un seul pilote n'est admis que si le passager médical a besoin du TCM en vol et que ni le départ ni l'arrivée ne sont un site d'intervention SMUH.</p>
+          <p><strong>Expérience de nuit du commandant</strong> (AMC1 SPA.HEMS.130(a)) : 20 h de vol de nuit en VMC pour la nuit restreinte (sans poser de nuit sur site) ; pour la nuit sans restriction, 30 h supplémentaires (en partie créditables sur simulateur) et 10 approches, atterrissages et décollages de nuit sur sites.</p>
+          <p><strong>NVIS</strong> : l'emploi des jumelles de vision nocturne relève d'une autorisation spécifique (sous-partie NVIS de la Part-SPA), avec une formation propre pour chaque membre d'équipage. La convention prévoit une prime NVIS pour le pilote et pour le TCM.</p>
+          <div class="src"><a href="https://eur-lex.europa.eu/eli/reg_impl/2023/1020/oj" target="_blank" rel="noopener">Règlement (UE) 2023/1020 ↗</a></div>
+        </div>
+      </details>
+      <details class="fiche" id="equipements" data-aud="commun" style="--c:var(--amber)">
+        <summary><span class="ref">Règlement (UE) 2023/1020</span><div><h3>Équipements et calendrier 2024 → 2028</h3><small>Pilote automatique, carte mobile, radio-altimètre, suivi des aéronefs</small></div><span class="chev">⌄</span></summary>
+        <div class="inner prose">
+          <p>La réforme de 2023 a aussi équipé la mission : carte mobile, radio-altimètre à alerte sonore, système de suivi des aéronefs. Pour le monopilote de nuit, un système d'augmentation de stabilité ou un pilote automatique est exigé, et un pilote automatique pour les appareils dont le premier certificat de navigabilité date du 25 mai 2024 ou après.</p>
+          <ul class="timeline">
+            <li><b>25/05/2024</b><span>Entrée en application générale du nouveau cadre SMUH.</span></li>
+            <li><b>25/05/2026</b><span>Dispositions sur les opérations de nuit vers des sites non reconnus au préalable, et équipements associés.</span></li>
+            <li><b>25/05/2028</b><span>Dernières échéances, dont des dispositions NVIS.</span></li>
+          </ul>
+          <p class="muted">Le détail de l'application date par date figure à l'article 3 du règlement : vérifiez-le au Journal officiel.</p>
+          <div class="src"><a href="https://eur-lex.europa.eu/eli/reg_impl/2023/1020/oj" target="_blank" rel="noopener">Règlement (UE) 2023/1020 ↗</a></div>
+        </div>
+      </details>
+      <details class="fiche" id="temps" data-aud="commun" style="--c:var(--amber)">
+        <summary><span class="ref">L. 6525-2 · L. 6525-4 · arrêté du 9 août 2007</span><div><h3>Temps de service et repos</h3><small>2 000 heures par an, permanence comprise</small></div><span class="chev">⌄</span></summary>
+        <div class="inner prose">
+          <ul>
+            <li><strong>Plafond annuel</strong> (L. 6525-2) : 2 000 h de temps de service, dont 900 h de vol.</li>
+            <li><strong>Repos minimal</strong> (L. 6525-4) : 7 jours par mois et 96 jours par année civile libres de tout service et astreinte, congés en sus.</li>
+            <li><strong>Spécifique SMUH</strong> (arrêté du 9 août 2007) : la permanence compte dans le temps de service ; temps de service hebdomadaire fixé à 44 h.</li>
+          </ul>
+          <p>Aucune règle européenne de limitation du temps de vol ne couvre l'hélicoptère : la sous-partie ORO.FTL ne vise que le transport commercial par avion. L'avis EASA n° 02/2026 sur les FTL concerne lui aussi les avions (dont le SMUA), pas les hélicoptères.</p>
+          <p><strong>L'arithmétique du 7/7</strong> : 7 × 12 h = 84 h par semaine de permanence. 2 000 ÷ 84 = 23,8 : au plus 23 semaines pleines par an. D'où un rythme « 7 travaillés / 7 de repos minimum », et non un 7/7 strict (qui ferait 2 184 h).</p>
+          <div class="src"><a href="https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000023086525" target="_blank" rel="noopener">Code des transports ↗</a><a href="https://www.easa.europa.eu/en/document-library/opinions/opinion-no-022026" target="_blank" rel="noopener">EASA · Avis 02/2026 ↗</a></div>
+        </div>
+      </details>
+      <details class="fiche" id="convention" data-aud="commun" style="--c:var(--green)">
+        <summary><span class="ref">IDCC 1944 · avenants 23 et 24</span><div><h3>Convention collective et salaires</h3><small>Minimums garantis pilotes et TCM au 1<sup>er</sup> juillet 2026</small></div><span class="chev">⌄</span></summary>
+        <div class="inner prose">
+          <p>Convention collective du personnel navigant technique des exploitants d'hélicoptères. Avenant n° 23 du 8 décembre 2025 (complété le 12 décembre 2025) et avenant n° 24 du 27 novembre 2025, <strong>étendus par arrêté du 19 mars 2026</strong> : obligatoires pour tous les exploitants.</p>
+          <div class="table-scroll">
+            <table class="pay">
+              <thead><tr><th>Brut mensuel pilote</th><th style="text-align:right">H24</th><th style="text-align:right">H12</th></tr></thead>
+              <tbody>
+                <tr><td>Salaire de base</td><td class="n">3 603 €</td><td class="n">3 603 €</td></tr>
+                <tr><td>Prime SAMU</td><td class="n">576 €</td><td class="n">523 €</td></tr>
+                <tr><td>Prime de commandant de bord</td><td class="n">472 €</td><td class="n">472 €</td></tr>
+                <tr class="tot"><td>Total</td><td class="n">4 651 €</td><td class="n">4 598 €</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-scroll">
+            <table class="pay">
+              <thead><tr><th>Brut mensuel TCM</th><th style="text-align:right">H24</th><th style="text-align:right">H12</th></tr></thead>
+              <tbody>
+                <tr><td>Salaire de base</td><td class="n">1 874 €</td><td class="n">1 874 €</td></tr>
+                <tr><td>Prime SAMU</td><td class="n">504 €</td><td class="n">459 €</td></tr>
+                <tr><td>Prime PPL</td><td class="n">90 €</td><td class="n">90 €</td></tr>
+                <tr class="tot"><td>Total</td><td class="n">2 468 €</td><td class="n">2 423 €</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>1<sup>er</sup> janvier 2027</strong> : pilote, prime de commandant de bord à 500 € (total 4 679 € en H24) ; TCM, prime SAMU à 568 € en H24 et 523 € en H12 (total 2 532 € en H24).</li>
+            <li><strong>Prime NVIS</strong> : 300 € pour le pilote, 150 € pour le TCM, portées à 480 € et 240 € au 1<sup>er</sup> janvier 2027.</li>
+            <li><strong>Prime de fidélité</strong> (avenant 24) : 1 500 € à 20 ans d'ancienneté, 2 000 € à 25 ans, versée une fois.</li>
+            <li><strong>Parcours PPL-H</strong> (accord du 5 juillet 2019, étendu le 18 septembre 2020) : frais pris en charge par l'employeur, sur la base du volontariat et hors temps de travail, sauf le secourisme.</li>
+          </ul>
+          <p class="muted">Montants hors ancienneté, 13<sup>e</sup> mois et mutuelle. Ce sont des minimums : rien n'interdit un employeur de payer plus.</p>
+          <div class="src"><a href="https://code.travail.gouv.fr/convention-collective/1944-exploitation-dhelicopteres" target="_blank" rel="noopener">Code du travail numérique · IDCC 1944 ↗</a><a href="https://www.juristique.org/conventionnel/salaires-exploitation-helicopteres-2026-2027" target="_blank" rel="noopener">Grille 2026-2027 ↗</a></div>
+        </div>
+      </details>
+      <details class="fiche" id="pilote-experience" data-aud="pilote" style="--c:var(--cyan)">
+        <summary><span class="ref">AMC1 SPA.HEMS.130(a)</span><div><h3>Pilote : expérience du commandant de bord</h3><small>1 000 heures, 500 sur hélicoptère, 500 en environnement comparable</small></div><span class="chev">⌄</span></summary>
+        <div class="inner prose">
+          <p>Le règlement demande à l'exploitant de fixer des critères de sélection tenant compte de l'expérience antérieure (SPA.HEMS.130(a)). L'AMC les chiffre : l'expérience minimale du commandant de bord en SMUH ne devrait pas être inférieure à</p>
+          <ul>
+            <li><strong>soit</strong> 1 000 h comme commandant de bord d'aéronef, dont 500 h sur hélicoptère ;</li>
+            <li><strong>soit</strong> 1 000 h comme copilote en SMUH, dont 500 h comme commandant sous supervision, plus 100 h comme commandant sur hélicoptère ;</li>
+            <li><strong>et</strong> 500 h d'expérience opérationnelle sur hélicoptère dans un environnement comparable à celui de la mission.</li>
+          </ul>
+          <p>Les caractéristiques géographiques (mer, montagne, zone urbaine dense) doivent être prises en compte (AMC1 SPA.HEMS.130(b)(2)).</p>
+          <div class="src"><a href="https://www.easa.europa.eu/sites/default/files/dfu/AMC___GM_to_Part-SPA_-_Issue_1__Amendment_14__corrected_.pdf" target="_blank" rel="noopener">EASA · AMC &amp; GM Part-SPA ↗</a><a href="../pilote/#experience">Devenir pilote héliSMUR →</a></div>
+        </div>
+      </details>
+      <details class="fiche" id="pilote-controles" data-aud="pilote" style="--c:var(--green)">
+        <summary><span class="ref">SPA.HEMS.130(c)(d)(g)</span><div><h3>Pilote : entraînement et contrôles</h3><small>Instruments tous les 6 mois sans IR, contrôles SMUH tous les 12 mois</small></div><span class="chev">⌄</span></summary>
+        <div class="inner prose">
+          <ul>
+            <li><strong>Formation opérationnelle</strong> selon les procédures SMUH du manuel d'exploitation.</li>
+            <li><strong>Pilotage sur références instrumentales</strong> : pour les pilotes sans qualification IR valide, entraînement valable 6 mois civils.</li>
+            <li><strong>Contrôles</strong> : les volets SMUH du contrôle hors ligne et du contrôle en ligne sont valables chacun 12 mois civils.</li>
+          </ul>
+        </div>
+      </details>
+      <details class="fiche" id="pilote-licence" data-aud="pilote" style="--c:var(--pink)">
+        <summary><span class="ref">Règlement (UE) 1178/2011 · Part-FCL</span><div><h3>Pilote : licence et qualifications</h3><small>CPL(H), qualification de type, nuit, IR, médical de classe 1</small></div><span class="chev">⌄</span></summary>
+        <div class="inner prose">
+          <ul>
+            <li><strong>Licence</strong> : pilote professionnel hélicoptère, CPL(H), ou pilote de ligne ATPL(H). Le théorique ATPL(H) est souvent apprécié.</li>
+            <li><strong>Qualification de type</strong> sur la machine exploitée (EC135, H145…), avec ses prorogations.</li>
+            <li><strong>Qualification de vol de nuit</strong>, et qualification de vol aux instruments (IR) selon l'exploitant ; sans IR valide, entraînement aux instruments tous les 6 mois (fiche « entraînement et contrôles »).</li>
+            <li><strong>Aptitude médicale</strong> : certificat médical de classe 1, exigé pour les licences professionnelles (Part-MED).</li>
+          </ul>
+          <p>Licences et qualifications relèvent du règlement « aircrew » (UE) n° 1178/2011 ; les exigences propres au SMUH (expérience, contrôles) relèvent du règlement sur les opérations aériennes (UE) n° 965/2012.</p>
+          <div class="src"><a href="https://eur-lex.europa.eu/eli/reg/2011/1178/oj" target="_blank" rel="noopener">Règlement (UE) 1178/2011 ↗</a><a href="../pilote/#parcours">Le parcours type →</a></div>
+        </div>
+      </details>
+      <details class="fiche" id="pilote-commandant" data-aud="pilote" style="--c:var(--amber)">
+        <summary><span class="ref">Commandant de bord</span><div><h3>Pilote : les responsabilités du commandant de bord</h3><small>Décision de vol, météo, aire de poser, sécurité</small></div><span class="chev">⌄</span></summary>
+        <div class="inner prose">
+          <p>Le commandant de bord est responsable de la sécurité de l'aéronef et de ses occupants pendant tout le vol. En SMUH, cela recouvre concrètement :</p>
+          <ul>
+            <li>la décision de décoller, de poursuivre ou de refuser la mission selon la météo et les minimums ;</li>
+            <li>le choix final de l'aire de poser et de la procédure d'approche ;</li>
+            <li>la répartition des tâches avec le TCM et le briefing de l'équipe médicale ;</li>
+            <li>la décision d'avitailler, de repositionner ou de réduire l'équipage dans les cas prévus.</li>
+          </ul>
+          <p>Le TCM assiste mais ne décide pas : la responsabilité du vol reste celle du commandant de bord, ce que reconnaît aussi la grille conventionnelle avec une prime dédiée.</p>
+          <div class="src"><a href="../pilote/#commandant">Le rôle du commandant de bord →</a></div>
+        </div>
+      </details>
       <details class="fiche" id="taches" data-aud="tcm" style="--c:var(--amber)">
-        <summary><span class="ref">AMC1 SPA.HEMS.130(e)</span><div><h3>Les quatre tâches principales</h3><small>Et celles que le commandant de bord peut déléguer</small></div><span class="chev">⌄</span></summary>
+        <summary><span class="ref">AMC1 SPA.HEMS.130(e)</span><div><h3>TCM : les quatre tâches principales</h3><small>Et celles que le commandant de bord peut déléguer</small></div><span class="chev">⌄</span></summary>
         <div class="inner prose">
           <p><strong>Point (b)</strong>, version issue de la décision 2023/007/R : le TCM assiste le commandant de bord dans</p>
           <ol>
@@ -84,19 +222,6 @@
           <div class="src"><a href="https://www.easa.europa.eu/en/document-library/agency-decisions/ed-decision-2023007r" target="_blank" rel="noopener">Décision EASA 2023/007/R ↗</a></div>
         </div>
       </details>
-
-      <details class="fiche" id="minimums" data-aud="commun" style="--c:var(--violet)">
-        <summary><span class="ref">SPA.HEMS.120 c)</span><div><h3>Minimums réduits</h3><small>Là où les tâches « facultatives » deviennent obligatoires</small></div><span class="chev">⌄</span></summary>
-        <div class="inner prose">
-          <p>Depuis 2023, le règlement réserve les minimums opérationnels réduits à deux configurations : l'exploitation <strong>multipilote</strong>, ou l'exploitation <strong>monopilote avec un TCM assis à l'avant</strong>, dûment qualifié et chargé d'atténuer le risque supplémentaire.</p>
-          <p>L'AMC1 SPA.HEMS.120(c)(2) précise « dûment qualifié » : formé aux quatre blocs (tâches principales, navigation, communications, surveillance des paramètres) et effectivement chargé de les assurer.</p>
-          <blockquote>Le « peut » est dans l'AMC ; la contrainte est dans le règlement. Dès qu'un exploitant vole aux minimums réduits, les tâches déléguables deviennent la norme.</blockquote>
-          <p>De jour, le tableau de l'AMC1 SPA.HEMS.120(a) fixe : plafond de 500 ft et plus → minimums VFR de l'espace aérien ; plafond de 499 à 300 ft → visibilité de 1 500 m (réduction possible à 800 m en route, en vue du sol). De nuit, les minimums sont nettement plus élevés (plafond de l'ordre de 1 200 ft et plus, visibilité de plusieurs kilomètres) et diffèrent selon l'emploi des jumelles de vision nocturne : se reporter au tableau officiel.</p>
-          <p>Calendrier : règlement d'exécution (UE) 2023/1020 du 24 mai 2023, applicable depuis le 25 mai 2024, avec des dispositions échelonnées jusqu'en 2026 et 2028 (sauvetage non médical, pilote automatique en monopilote de nuit).</p>
-          <div class="src"><a href="https://eur-lex.europa.eu/eli/reg_impl/2023/1020/oj" target="_blank" rel="noopener">Règlement (UE) 2023/1020 ↗</a></div>
-        </div>
-      </details>
-
       <details class="fiche" id="formation" data-aud="tcm" style="--c:var(--green)">
         <summary><span class="ref">ORO.TC · AMC1 &amp; AMC2 SPA.HEMS.130(f)(1)</span><div><h3>TCM : formation et contrôles</h3><small>17 items, un tronc commun, des modules selon les tâches</small></div><span class="chev">⌄</span></summary>
         <div class="inner prose">
@@ -113,7 +238,6 @@
           <div class="src"><a href="https://www.easa.europa.eu/en/document-library/agency-decisions/ed-decision-2023007r" target="_blank" rel="noopener">Décision EASA 2023/007/R ↗</a></div>
         </div>
       </details>
-
       <details class="fiche" id="experience" data-aud="tcm" style="--c:var(--cyan)">
         <summary><span class="ref">AMC1 SPA.HEMS.130(e)(g) · AMC1 ORO.TC.135</span><div><h3>TCM : expérience et incapacité du pilote</h3><small>Le seuil des 50 missions, le programme annuel d'urgence</small></div><span class="chev">⌄</span></summary>
         <div class="inner prose">
@@ -121,7 +245,6 @@
           <p><strong>Incapacité du pilote.</strong> Elle figure dans les procédures d'urgence du maintien des compétences annuel de tout membre d'équipage technique, avec l'évacuation, les issues de secours et les premiers secours. La conduite à tenir une fois l'incapacité identifiée relève de la procédure de chaque exploitant.</p>
         </div>
       </details>
-
       <details class="fiche" id="medical" data-aud="tcm" style="--c:var(--pink)">
         <summary><span class="ref">ORO.TC.105 · GM1 ORO.TC.105</span><div><h3>TCM : aptitude médicale</h3><small>Ce que dit le texte, ce que demandent les employeurs</small></div><span class="chev">⌄</span></summary>
         <div class="inner prose">
@@ -129,7 +252,6 @@
           <p>En pratique, les exploitants demandent un certificat médical de <strong>classe 2</strong> (celui du pilote privé, Part-MED du règlement (UE) n° 1178/2011), inscrit au manuel d'exploitation. C'est une exigence d'employeur, pas une obligation réglementaire.</p>
         </div>
       </details>
-
       <details class="fiche" id="statut" data-aud="tcm" style="--c:var(--violet)">
         <summary><span class="ref">Arrêtés du 29/09/2015 et du 02/10/2018</span><div><h3>TCM : un titre qui n'est pas une licence</h3><small>Un titre qui n'est pas une licence</small></div><span class="chev">⌄</span></summary>
         <div class="inner prose">
@@ -140,119 +262,19 @@
           <div class="src"><a href="https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000023086525" target="_blank" rel="noopener">Code des transports ↗</a><a href="https://emploi.fhf.fr/sites/default/files/documents/333%20du%2010%20novembre%202015.pdf" target="_blank" rel="noopener">Instruction DGOS/R2/2015/333 ↗</a></div>
         </div>
       </details>
-
-      <details class="fiche" id="pilote-experience" data-aud="pilote" style="--c:var(--cyan)">
-        <summary><span class="ref">AMC1 SPA.HEMS.130(a)</span><div><h3>Pilote : expérience du commandant de bord</h3><small>1 000 heures, 500 sur hélicoptère, 500 en environnement comparable</small></div><span class="chev">⌄</span></summary>
-        <div class="inner prose">
-          <p>Le règlement demande à l'exploitant de fixer des critères de sélection tenant compte de l'expérience antérieure (SPA.HEMS.130(a)). L'AMC les chiffre : l'expérience minimale du commandant de bord en SMUH ne devrait pas être inférieure à</p>
-          <ul>
-            <li><strong>soit</strong> 1 000 h comme commandant de bord d'aéronef, dont 500 h sur hélicoptère ;</li>
-            <li><strong>soit</strong> 1 000 h comme copilote en SMUH, dont 500 h comme commandant sous supervision, plus 100 h comme commandant sur hélicoptère ;</li>
-            <li><strong>et</strong> 500 h d'expérience opérationnelle sur hélicoptère dans un environnement comparable à celui de la mission.</li>
-          </ul>
-          <p>Les caractéristiques géographiques (mer, montagne, zone urbaine dense) doivent être prises en compte (AMC1 SPA.HEMS.130(b)(2)).</p>
-          <div class="src"><a href="https://www.easa.europa.eu/sites/default/files/dfu/AMC___GM_to_Part-SPA_-_Issue_1__Amendment_14__corrected_.pdf" target="_blank" rel="noopener">EASA · AMC &amp; GM Part-SPA ↗</a><a href="../pilote/#experience">Devenir pilote héliSMUR →</a></div>
-        </div>
-      </details>
-
-      <details class="fiche" id="nuit" data-aud="commun" style="--c:var(--violet)">
-        <summary><span class="ref">SPA.HEMS.130(e)(2) · SPA.NVIS</span><div><h3>Vol de nuit et NVIS</h3><small>Équipage, expérience de nuit, jumelles de vision nocturne</small></div><span class="chev">⌄</span></summary>
-        <div class="inner prose">
-          <p><strong>Équipage de nuit</strong> : deux pilotes, ou un pilote et un TCM. Un seul pilote n'est admis que si le passager médical a besoin du TCM en vol et que ni le départ ni l'arrivée ne sont un site d'intervention SMUH.</p>
-          <p><strong>Expérience de nuit du commandant</strong> (AMC1 SPA.HEMS.130(a)) : 20 h de vol de nuit en VMC pour la nuit restreinte (sans poser de nuit sur site) ; pour la nuit sans restriction, 30 h supplémentaires (en partie créditables sur simulateur) et 10 approches, atterrissages et décollages de nuit sur sites.</p>
-          <p><strong>NVIS</strong> : l'emploi des jumelles de vision nocturne relève d'une autorisation spécifique (sous-partie NVIS de la Part-SPA), avec une formation propre pour chaque membre d'équipage. La convention prévoit une prime NVIS pour le pilote et pour le TCM.</p>
-          <div class="src"><a href="https://eur-lex.europa.eu/eli/reg_impl/2023/1020/oj" target="_blank" rel="noopener">Règlement (UE) 2023/1020 ↗</a></div>
-        </div>
-      </details>
-
-      <details class="fiche" id="pilote-controles" data-aud="pilote" style="--c:var(--green)">
-        <summary><span class="ref">SPA.HEMS.130(c)(d)(g)</span><div><h3>Pilote : entraînement et contrôles</h3><small>Instruments tous les 6 mois sans IR, contrôles SMUH tous les 12 mois</small></div><span class="chev">⌄</span></summary>
-        <div class="inner prose">
-          <ul>
-            <li><strong>Formation opérationnelle</strong> selon les procédures SMUH du manuel d'exploitation.</li>
-            <li><strong>Pilotage sur références instrumentales</strong> : pour les pilotes sans qualification IR valide, entraînement valable 6 mois civils.</li>
-            <li><strong>Contrôles</strong> : les volets SMUH du contrôle hors ligne et du contrôle en ligne sont valables chacun 12 mois civils.</li>
-          </ul>
-        </div>
-      </details>
-
-      <details class="fiche" id="equipements" data-aud="commun" style="--c:var(--amber)">
-        <summary><span class="ref">Règlement (UE) 2023/1020</span><div><h3>Équipements et calendrier 2024 → 2028</h3><small>Pilote automatique, carte mobile, radio-altimètre, suivi des aéronefs</small></div><span class="chev">⌄</span></summary>
-        <div class="inner prose">
-          <p>La réforme de 2023 a aussi équipé la mission : carte mobile, radio-altimètre à alerte sonore, système de suivi des aéronefs. Pour le monopilote de nuit, un système d'augmentation de stabilité ou un pilote automatique est exigé, et un pilote automatique pour les appareils dont le premier certificat de navigabilité date du 25 mai 2024 ou après.</p>
-          <ul class="timeline">
-            <li><b>25/05/2024</b><span>Entrée en application générale du nouveau cadre SMUH.</span></li>
-            <li><b>25/05/2026</b><span>Dispositions sur les opérations de nuit vers des sites non reconnus au préalable, et équipements associés.</span></li>
-            <li><b>25/05/2028</b><span>Dernières échéances, dont des dispositions NVIS.</span></li>
-          </ul>
-          <p class="muted">Le détail de l'application date par date figure à l'article 3 du règlement : vérifiez-le au Journal officiel.</p>
-          <div class="src"><a href="https://eur-lex.europa.eu/eli/reg_impl/2023/1020/oj" target="_blank" rel="noopener">Règlement (UE) 2023/1020 ↗</a></div>
-        </div>
-      </details>
-
-      <details class="fiche" id="temps" data-aud="commun" style="--c:var(--amber)">
-        <summary><span class="ref">L. 6525-2 · L. 6525-4 · arrêté du 9 août 2007</span><div><h3>Temps de service et repos</h3><small>2 000 heures par an, permanence comprise</small></div><span class="chev">⌄</span></summary>
-        <div class="inner prose">
-          <ul>
-            <li><strong>Plafond annuel</strong> (L. 6525-2) : 2 000 h de temps de service, dont 900 h de vol.</li>
-            <li><strong>Repos minimal</strong> (L. 6525-4) : 7 jours par mois et 96 jours par année civile libres de tout service et astreinte, congés en sus.</li>
-            <li><strong>Spécifique SMUH</strong> (arrêté du 9 août 2007) : la permanence compte dans le temps de service ; temps de service hebdomadaire fixé à 44 h.</li>
-          </ul>
-          <p>Aucune règle européenne de limitation du temps de vol ne couvre l'hélicoptère : la sous-partie ORO.FTL ne vise que le transport commercial par avion. L'avis EASA n° 02/2026 sur les FTL concerne lui aussi les avions (dont le SMUA), pas les hélicoptères.</p>
-          <p><strong>L'arithmétique du 7/7</strong> : 7 × 12 h = 84 h par semaine de permanence. 2 000 ÷ 84 = 23,8 : au plus 23 semaines pleines par an. D'où un rythme « 7 travaillés / 7 de repos minimum », et non un 7/7 strict (qui ferait 2 184 h).</p>
-          <div class="src"><a href="https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000023086525" target="_blank" rel="noopener">Code des transports ↗</a><a href="https://www.easa.europa.eu/en/document-library/opinions/opinion-no-022026" target="_blank" rel="noopener">EASA · Avis 02/2026 ↗</a></div>
-        </div>
-      </details>
-
-      <details class="fiche" id="convention" data-aud="commun" style="--c:var(--green)">
-        <summary><span class="ref">IDCC 1944 · avenants 23 et 24</span><div><h3>Convention collective et salaires</h3><small>Minimums garantis pilotes et TCM au 1<sup>er</sup> juillet 2026</small></div><span class="chev">⌄</span></summary>
-        <div class="inner prose">
-          <p>Convention collective du personnel navigant technique des exploitants d'hélicoptères. Avenant n° 23 du 8 décembre 2025 (complété le 12 décembre 2025) et avenant n° 24 du 27 novembre 2025, <strong>étendus par arrêté du 19 mars 2026</strong> : obligatoires pour tous les exploitants.</p>
-          <div class="table-scroll">
-            <table class="pay">
-              <thead><tr><th>Brut mensuel TCM</th><th style="text-align:right">H24</th><th style="text-align:right">H12</th></tr></thead>
-              <tbody>
-                <tr><td>Salaire de base</td><td class="n">1 874 €</td><td class="n">1 874 €</td></tr>
-                <tr><td>Prime SAMU</td><td class="n">504 €</td><td class="n">459 €</td></tr>
-                <tr><td>Prime PPL</td><td class="n">90 €</td><td class="n">90 €</td></tr>
-                <tr class="tot"><td>Total</td><td class="n">2 468 €</td><td class="n">2 423 €</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="table-scroll">
-            <table class="pay">
-              <thead><tr><th>Brut mensuel pilote</th><th style="text-align:right">H24</th><th style="text-align:right">H12</th></tr></thead>
-              <tbody>
-                <tr><td>Salaire de base</td><td class="n">3 603 €</td><td class="n">3 603 €</td></tr>
-                <tr><td>Prime SAMU</td><td class="n">576 €</td><td class="n">523 €</td></tr>
-                <tr><td>Prime de commandant de bord</td><td class="n">472 €</td><td class="n">472 €</td></tr>
-                <tr class="tot"><td>Total</td><td class="n">4 651 €</td><td class="n">4 598 €</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <ul>
-            <li><strong>1<sup>er</sup> janvier 2027</strong> : TCM, prime SAMU à 568 € en H24 et 523 € en H12 (minimum garanti 2 532 € en H24) ; pilote, prime de commandant de bord à 500 € (total 4 679 € en H24).</li>
-            <li><strong>Prime NVIS</strong> : 300 € pour le pilote, 150 € pour le TCM, portées à 480 € et 240 € au 1<sup>er</sup> janvier 2027.</li>
-            <li><strong>Prime de fidélité</strong> (avenant 24) : 1 500 € à 20 ans d'ancienneté, 2 000 € à 25 ans, versée une fois.</li>
-            <li><strong>Parcours PPL-H</strong> (accord du 5 juillet 2019, étendu le 18 septembre 2020) : frais pris en charge par l'employeur, sur la base du volontariat et hors temps de travail, sauf le secourisme.</li>
-          </ul>
-          <p class="muted">Montants hors ancienneté, 13<sup>e</sup> mois et mutuelle. Ce sont des minimums : rien n'interdit un employeur de payer plus.</p>
-          <div class="src"><a href="https://code.travail.gouv.fr/convention-collective/1944-exploitation-dhelicopteres" target="_blank" rel="noopener">Code du travail numérique · IDCC 1944 ↗</a><a href="https://www.juristique.org/conventionnel/salaires-exploitation-helicopteres-2026-2027" target="_blank" rel="noopener">Grille 2026-2027 ↗</a></div>
-        </div>
-      </details>
-
       <details class="fiche" id="chronologie" data-aud="commun" style="--c:var(--cyan)">
-        <summary><span class="ref">2011 → 2028</span><div><h3>Chronologie</h3><small>De la case jamais cochée au poste structuré</small></div><span class="chev">⌄</span></summary>
+        <summary><span class="ref">2011 → 2028</span><div><h3>Chronologie</h3><small>Les étapes qui ont façonné les équipages SMUH</small></div><span class="chev">⌄</span></summary>
         <div class="inner prose">
           <ul class="timeline">
+            <li><b>2007</b><span>Arrêté du 9 août : la permanence compte dans le temps de service des équipages SMUH, 44 h par semaine.</span></li>
             <li><b>2011</b><span>L'arrêté du 10 août 2011 permet le SMUH avec un membre d'équipage technique (17 items). Aucun exploitant français ne l'utilise.</span></li>
             <li><b>2012</b><span>Décision EASA 2012/019/R : l'Europe reprend le référentiel et impose un équipage à deux.</span></li>
             <li><b>2014-15</b><span>Dérogations DGAC du 28 octobre 2014 au 31 décembre 2015, non prorogées après l'avis négatif de l'EASA.</span></li>
-            <li><b>2015</b><span>Rapport CGEDD n° 010268-01, instruction DGOS/R2/2015/333, arrêté du 29 septembre 2015 sur le titre.</span></li>
+            <li><b>2015</b><span>La France ne compte que 219 pilotes de ligne hélicoptère ; il en aurait fallu 150 de plus pour voler à deux pilotes. Rapport CGEDD n° 010268-01, instruction DGOS/R2/2015/333, arrêté du 29 septembre 2015 sur le titre.</span></li>
             <li><b>2016</b><span>1<sup>er</sup> janvier : naissance du métier. Le rapport inter-inspections propose de recourir aux ambulanciers (recommandation n° 13), sans suite.</span></li>
             <li><b>2018</b><span>Arrêté du 2 octobre : bascule au 3° de l'article L. 6521-1.</span></li>
             <li><b>2019</b><span>Accord du 5 juillet : première grille de salaires TCM et financement du PPL-H.</span></li>
-            <li><b>2023</b><span>Règlement 2023/1020 et décision 2023/007/R : 4<sup>e</sup> tâche, AMC2 de formation, minimums réduits liés au TCM.</span></li>
+            <li><b>2023</b><span>Règlement 2023/1020 et décision 2023/007/R : expérience du commandant de bord chiffrée, minimums réduits réservés au multipilote ou au monopilote avec TCM à l'avant, nouveaux équipements, 4<sup>e</sup> tâche et formation complète du TCM.</span></li>
             <li><b>2024</b><span>25 mai : entrée en application du nouveau cadre SMUH.</span></li>
             <li><b>2025</b><span>Grève des pilotes héliSMUR, accord du 30 juillet après médiation ; avenants 23 et 24.</span></li>
             <li><b>2026</b><span>19 mars : extension des avenants. Projet de contrat territorial du secours d'urgence en débat.</span></li>
@@ -260,7 +282,6 @@
           </ul>
         </div>
       </details>
-
       <details class="fiche" id="textes" data-aud="commun" style="--c:var(--violet)">
         <summary><span class="ref">Bibliothèque</span><div><h3>Textes et rapports de référence</h3><small>Les sources primaires, à ouvrir directement</small></div><span class="chev">⌄</span></summary>
         <div class="inner prose">
