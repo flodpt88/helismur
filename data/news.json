@@ -1,0 +1,95 @@
+{
+  "updated": "2026-10-19",
+  "items": [
+    {
+      "id": "2026-10-16-helismur12-millau",
+      "date": "2026-10-16",
+      "category": "Bases",
+      "title": "HéliSMUR 12 : un transfert Millau → CHU de Montpellier au crépuscule",
+      "summary": "L'hélicoptère du SAMU de l'Aveyron a assuré un transfert inter-hospitalier entre l'hôpital de Millau et le CHU de Montpellier. La presse locale en a publié la photo prise par le pilote au retour de mission, au-dessus de Millau.",
+      "source": "12actu",
+      "url": "https://www.12actu.com/2026/10/16/millau-vue-du-ciel-depuis-lhelicoptere-du-samu-12"
+    },
+    {
+      "id": "2026-09-22-belledonne-helistation",
+      "date": "2026-09-22",
+      "category": "Hélistations",
+      "title": "Isère : la clinique Belledonne inaugure son hélistation en toiture",
+      "summary": "Mise en service en juillet après un retard lié à une grue de chantier voisine, l'hélistation (2 M€, autofinancée) remplace une plateforme utilisée depuis plus de quarante ans. Environ 200 rotations par an attendues, surtout en cardiologie interventionnelle.",
+      "source": "Place Gre'net",
+      "url": "https://www.placegrenet.fr/2026/09/23/saint-martin-dheres-lhelistation-de-la-clinique-belledonne-destinee-aux-urgences-enfin-operationnelle/689882"
+    },
+    {
+      "id": "2026-06-08-helismur05-gap",
+      "date": "2026-06-08",
+      "category": "Bases",
+      "title": "HéliSMUR 05 quitte Tallard et s'installe à l'hôpital de Gap",
+      "summary": "La machine stationnait à l'aérodrome de Tallard, à une quinzaine de kilomètres de l'équipe médicale. L'hélistation modernisée du CHICAS lui offre désormais hangar, avitaillement et locaux équipage sur site. Projet d'environ 3,4 M€ financé par l'ARS PACA ; 437 missions en 2025.",
+      "source": "Préfecture des Hautes-Alpes / ARS PACA",
+      "url": "https://www.hautes-alpes.gouv.fr/Services-de-l-Etat/Delegation-des-Hautes-Alpes-de-l-Agence-regionale-de-sante-Provence-Alpes-Cote-d-Azur-ARS/L-helicoptere-du-SAMU-05-desormais-au-plus-pres-de-l-hopital-de-Gap"
+    },
+    {
+      "id": "2026-05-06-chu-nantes-helistation",
+      "date": "2026-05-06",
+      "category": "Hélistations",
+      "title": "Futur CHU de Nantes : une hélistation en toiture pour trois hélicoptères",
+      "summary": "Le futur Hôpital Loire Santé, sur l'île de Nantes, pourra recevoir trois machines simultanément, avec deux ascenseurs directs vers les urgences, la réanimation et les soins critiques. La plateforme est montée sur ressorts pour limiter les vibrations dans le bâtiment.",
+      "source": "Infos Média Nantes",
+      "url": "https://infos-media-nantes.fr/futur-chu-de-nantes-helistation-trois-helicopteres/"
+    },
+    {
+      "id": "2026-05-01-helismur03-allier",
+      "date": "2026-05-01",
+      "category": "Bases",
+      "title": "HéliSMUR 03 : saison de six mois depuis Saint-Pourçain-sur-Sioule",
+      "summary": "L'hélicoptère saisonnier de l'Allier est en service du 1er mai au 31 octobre, 7j/7 de 8 h à 20 h, depuis l'héliport du SDIS 03. Le Département y consacre 350 000 €. La saison précédente avait compté 459 interventions, dont environ deux tiers de primaires.",
+      "source": "Allier Pop Rock",
+      "url": "https://allierpoprock.fr/news/l-helismur03-operationnel-depuis-ce-vendredi-1er-mai-2026-pour-une-duree-de-6-mois-2117"
+    },
+    {
+      "id": "2026-04-29-aerobuzz-modele-danger",
+      "date": "2026-04-29",
+      "category": "Réglementation",
+      "title": "« Hélicos Samu, le modèle français en danger » : les médecins tirent la sonnette d'alarme",
+      "summary": "Aerobuzz relaie l'appel de l'AFHSH, l'association des médecins utilisateurs d'hélicoptères sanitaires : le modèle opérationnel et économique est sous tension, et les autorités sont invitées à agir avant l'évolution réglementaire attendue sur les vols de nuit.",
+      "source": "Aerobuzz",
+      "url": "https://www.aerobuzz.fr/helicoptere/helicos-samu-le-modele-francais-en-danger/"
+    },
+    {
+      "id": "2026-04-07-ctsu-report",
+      "date": "2026-04-07",
+      "category": "Réforme des secours",
+      "title": "Contrat territorial du secours d'urgence : l'examen à l'Assemblée repoussé",
+      "summary": "Le projet de loi de décentralisation, qui confierait au préfet la coordination du secours d'urgence et ne laisserait qu'un rôle consultatif aux ARS, n'a pas été inscrit à l'ordre du jour prévu. Les SDIS soutiennent le texte, les urgentistes s'y opposent ; une réécriture est évoquée.",
+      "source": "Secours Mag",
+      "url": "https://www.secoursmag.fr/2026/04/07/1019567/"
+    },
+    {
+      "id": "2026-03-25-helicos-disparaitre",
+      "date": "2026-03-25",
+      "category": "Réforme des secours",
+      "title": "Les hélicoptères du SAMU vont-ils disparaître ? Une rumeur à prendre avec prudence",
+      "summary": "Un article d'Avions Légendaires évoque une extinction progressive des flottes louées au profit de la Sécurité civile si la réforme aboutissait. Aucun texte publié ne le prévoit à ce jour, et l'auteur lui-même juge peu probable l'achat massif de machines que cela supposerait.",
+      "source": "Avions Légendaires",
+      "url": "https://www.avionslegendaires.net/2026/03/actu/en-france-les-helicopteres-du-samu-vont-ils-disparaitre/"
+    },
+    {
+      "id": "2026-03-19-extension-avenants",
+      "date": "2026-03-19",
+      "category": "Convention collective",
+      "title": "Avenants 23 et 24 étendus : nouvelle grille et prime de fidélité pour tout le secteur",
+      "summary": "L'arrêté d'extension rend obligatoires pour tous les exploitants la revalorisation de la prime SAMU (568 € en H24 au 1er janvier 2027), la prime jumelles de vision nocturne et la prime de fidélité à 20 et 25 ans d'ancienneté.",
+      "source": "Convention collective IDCC 1944",
+      "url": "https://code.travail.gouv.fr/convention-collective/1944-exploitation-dhelicopteres"
+    },
+    {
+      "id": "2026-03-13-cnom-moratoire",
+      "date": "2026-03-13",
+      "category": "Réforme des secours",
+      "title": "Réforme des urgences : l'Ordre des médecins demande un moratoire",
+      "summary": "Le CNOM craint une dilution de l'expertise médicale si la gestion opérationnelle du secours à personne passait sous l'autorité préfectorale. Samu-Urgences de France parle de rupture dans la chaîne de décision médicale ; la FNSPF assure que la régulation resterait médicale.",
+      "source": "Caducée.net",
+      "url": "https://www.caducee.net/actualite-medicale/16836/reforme-des-urgences-pourquoi-le-cnom-demande-un-moratoire-sur-le-futur-ctsu.html"
+    }
+  ]
+}

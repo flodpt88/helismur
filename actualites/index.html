@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Actualités de l'héliSMUR · Assistant de vol SMUH</title>
+<meta name="description" content="Les actualités des hélicoptères du SAMU en France : bases, hélistations, réforme des secours, réglementation, convention collective. Mises à jour chaque semaine.">
+<meta name="theme-color" content="#0a0920">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff3d8b'/%3E%3Cpath d='M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="../"><i>✚</i><span>Assistant de vol<small>SMUH · héliSMUR</small></span></a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav">
+      <a href="../">Accueil</a>
+      <a href="../actualites/" aria-current="page">Actualités</a>
+      <a href="../reglementation/">Réglementation</a>
+      <a href="../metier/">Le métier</a>
+      <a href="../outils/">Boîte à outils</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="page-head">
+    <div class="eyebrow" style="--c:var(--pink)">// Mis à jour chaque semaine</div>
+    <h1>Actualités de l'<em>héliSMUR</em></h1>
+    <p class="lead">Bases et hélistations, réforme du secours d'urgence, réglementation européenne, convention collective, sécurité des vols. Chaque actu est résumée en quelques lignes et renvoie vers sa source.</p>
+    <p class="updated" style="margin-top:14px" data-news-updated></p>
+  </section>
+
+  <section class="block" style="padding-top:24px">
+    <div class="filters" data-news-filters role="group" aria-label="Filtrer par catégorie"></div>
+    <div class="news" data-news data-src="../data/news.json"><p class="muted">Chargement des actualités…</p></div>
+    <noscript><p class="muted">Activez JavaScript pour afficher les actualités.</p></noscript>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="card" style="--c:var(--cyan)">
+      <h3>Une info à partager ?</h3>
+      <p>Ouverture ou fermeture de base, nouvel appareil, changement d'exploitant, hélistation, texte réglementaire : les actus sont sélectionnées chaque semaine dans la presse et les publications officielles. Les résumés sont rédigés pour ce site, et chaque article renvoie vers sa source d'origine.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div>
+      <b>Assistant de vol SMUH</b>
+      <p>Site indépendant et non officiel, tenu par un assistant de vol héliSMUR. Il n'engage aucun exploitant ni aucun établissement de santé.</p>
+      <p>Les textes officiels (EUR-Lex, EASA, Légifrance, SIA, Météo-France) font toujours foi.</p>
+    </div>
+    <div>
+      <b>Le site</b>
+      <a href="../actualites/">Actualités</a>
+      <a href="../reglementation/">Réglementation</a>
+      <a href="../metier/">Le métier</a>
+      <a href="../outils/">Boîte à outils</a>
+    </div>
+    <div>
+      <b>Sources officielles</b>
+      <a href="https://www.easa.europa.eu/en/document-library/general-publications/easy-access-rules-air-operations" target="_blank" rel="noopener">EASA · Easy Access Rules</a>
+      <a href="https://www.sia.aviation-civile.gouv.fr/" target="_blank" rel="noopener">SIA</a>
+      <a href="https://bea.aero/" target="_blank" rel="noopener">BEA</a>
+      <a href="https://www.samu-urgences-de-france.fr/" target="_blank" rel="noopener">Samu-Urgences de France</a>
+    </div>
+  </div>
+</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

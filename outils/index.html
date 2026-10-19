@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Boîte à outils des assistants de vol héliSMUR : briefing météo, NOTAM, AZBA, nuit aéronautique, conversion de coordonnées GPS, heures décimales jour / nuit, kéro litres en kilos.">
+<meta name="theme-color" content="#0b0a1e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff3d8b'/%3E%3Cpath d='M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z' fill='%23fff'/%3E%3C/svg%3E">
+<title>Boîte à outils · Assistant de vol SMUH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout : nav fixe → hero → 3 temps de la journée (prise de service, déclenchement, retour) → liens.
+   Chaque section : en-tête numéroté, outils en cartes, repères génériques en listes sobres. Thème sombre assumé. */
+:root{
+  color-scheme:dark;
+  --bg:#0b0a1e; --bg2:#151336; --card:rgba(255,255,255,.045); --card-2:rgba(255,255,255,.075); --well:rgba(0,0,0,.24);
+  --line:rgba(255,255,255,.1); --line-2:rgba(255,255,255,.16);
+  --ink:#f3f1ff; --ink-2:#d6d3f0; --muted:#a6a2cc;
+  --pink:#ff4d93; --cyan:#4fe1ff; --violet:#9670ff; --amber:#ffb85c; --green:#5cf0ad;
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r-lg:24px; --r-md:16px; --r-sm:12px;
+}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow-x:hidden;
+  background-image:radial-gradient(1000px 560px at 85% -12%,rgba(150,112,255,.2),transparent 65%);background-repeat:no-repeat}
+a{color:inherit}
+b,strong{font-weight:700}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ——— Nav fixe ——— */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(11,10,30,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.logo{font-family:var(--f-display);font-weight:700;font-size:.92rem;letter-spacing:.03em;display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap}
+.logo i{width:28px;height:28px;border-radius:9px;background:var(--pink);display:grid;place-items:center;font-style:normal;font-size:.85rem}
+.navl{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.navl::-webkit-scrollbar{display:none}
+.navl a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.88rem;padding:7px 12px;border-radius:99px;white-space:nowrap}
+.navl a:hover{color:var(--ink);background:var(--card)}
+.navl a b{font-family:var(--f-mono);font-weight:500;font-size:.72rem;margin-right:6px;color:var(--pink)}
+.navclock{font-family:var(--f-mono);font-size:.85rem;color:var(--cyan);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:760px){.navclock{display:none}.logo span{display:none}}
+
+main.wrap{display:grid;gap:96px;padding-block:40px 64px}
+@media (max-width:700px){main.wrap{gap:72px;padding-top:24px}}
+
+/* ——— Hero ——— */
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+@media (max-width:880px){.hero{grid-template-columns:1fr;gap:28px}}
+.eyebrow{font-family:var(--f-mono);font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(2.1rem,5.4vw,3.6rem);line-height:1.06;letter-spacing:-.01em;margin:12px 0 18px;text-wrap:balance}
+h1 em{font-style:normal;color:var(--pink)}
+.lead{color:var(--ink-2);max-width:44ch;margin:0 0 28px;font-size:1.08rem}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:520px}
+@media (max-width:480px){.flow{grid-template-columns:1fr}}
+.flow a{display:grid;gap:2px;text-decoration:none;padding:12px 14px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--line)}
+.flow a:hover{border-color:var(--line-2);background:var(--card-2)}
+.flow a span{font-family:var(--f-mono);font-size:.7rem;color:var(--c)}
+.flow a b{font-size:.95rem}
+.clocks{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.clock{border-radius:var(--r-md);padding:10px 16px;background:var(--card);border:1px solid var(--line)}
+.clock small{display:block;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.16em;color:var(--muted)}
+.clock time{font-family:var(--f-mono);font-size:1.5rem;font-weight:600;font-variant-numeric:tabular-nums}
+.clock.utc time{color:var(--cyan)}
+.art{margin:0;position:relative;aspect-ratio:4/4.6;max-width:100%;border-radius:28px;overflow:hidden;border:1px solid var(--line);background:#2a0a2a}
+.art img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;display:block}
+.art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(11,10,30,.55));pointer-events:none}
+@media (max-width:880px){.art{aspect-ratio:4/3}.art img{object-position:50% 30%}}
+
+/* ——— En-têtes de section ——— */
+.sh{display:grid;grid-template-columns:auto 1fr;gap:6px 20px;align-items:end;margin-bottom:28px}
+.sh .idx{grid-row:span 2;font-family:var(--f-display);font-weight:700;font-size:clamp(2.6rem,6vw,3.8rem);line-height:.9;color:transparent;-webkit-text-stroke:1.5px var(--c)}
+.sh .k{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--c)}
+h2{font-family:var(--f-display);font-weight:700;font-size:clamp(1.5rem,3.4vw,2.1rem);margin:0;line-height:1.12;text-wrap:balance}
+.sh p{grid-column:1/-1;margin:10px 0 0;color:var(--ink-2);max-width:62ch}
+h3{font-family:var(--f-display);font-weight:500;font-size:1.2rem;line-height:1.2;margin:0}
+.subhead{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:40px 0 14px;display:flex;align-items:center;gap:12px}
+.subhead::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* ——— Cartes ——— */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:980px){.grid3{grid-template-columns:1fr}}
+.card{border-radius:var(--r-lg);padding:24px;background:var(--card);border:1px solid var(--line);display:grid;gap:18px;align-content:start;min-width:0}
+.top{display:flex;align-items:center;gap:14px}
+.ill{width:52px;height:52px;flex:none;border-radius:15px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 15%,transparent)}
+.ill svg{width:34px;height:34px}
+.tag{display:block;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--c);margin-bottom:2px}
+.what{margin:0;color:var(--ink-2);font-size:.95rem}
+.main{display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;font-weight:700;padding:14px 16px;border-radius:var(--r-md);background:color-mix(in srgb,var(--c) 13%,transparent);border:1px solid color-mix(in srgb,var(--c) 38%,transparent);transition:border-color .15s,background .15s}
+.main small{display:block;font-weight:500;color:var(--muted);font-size:.8rem}
+.main .go{width:32px;height:32px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--c);color:#0b0a1e;font-weight:800;font-size:.9rem}
+.main:hover{border-color:var(--c);background:color-mix(in srgb,var(--c) 20%,transparent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{text-decoration:none;font-size:.84rem;font-weight:600;padding:6px 12px;border-radius:99px;background:var(--card);border:1px solid var(--line)}
+.chip:hover{border-color:var(--c)}
+
+/* Consignes (listes sobres) */
+.rules{display:grid;gap:12px;padding-top:16px;border-top:1px solid var(--line)}
+.rules h4{margin:0 0 4px;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.rules ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.rules li{position:relative;padding-left:16px;font-size:.92rem;color:var(--ink-2);line-height:1.5}
+.rules li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:2px;background:var(--c)}
+.rules li.alert{color:var(--ink)}
+.rules li.alert::before{background:var(--amber)}
+.path{font-family:var(--f-mono);font-size:.82rem;color:var(--ink);background:var(--well);padding:1px 6px;border-radius:6px;white-space:nowrap}
+
+/* Mémos */
+.memos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:980px){.memos{grid-template-columns:1fr}}
+.memo{border-radius:var(--r-lg);padding:20px 22px;background:transparent;border:1px solid var(--line);display:grid;gap:12px;align-content:start;min-width:0}
+.memo h4{margin:0;font-size:1rem;font-weight:700;display:flex;align-items:center;gap:10px}
+.memo h4::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--c);flex:none}
+.memo ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.memo li{font-size:.92rem;color:var(--ink-2);line-height:1.5;padding-left:20px;position:relative}
+.memo li::before{content:"→";position:absolute;left:0;color:var(--muted);font-size:.85rem}
+.memo .sm{color:var(--muted);font-size:.85rem}
+.memo.today{border-color:var(--amber);background:rgba(255,184,92,.07)}
+.memo .badge{display:none;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:99px;background:var(--amber);color:#0b0a1e;margin-left:auto}
+.memo.today .badge{display:inline-block}
+.mail{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.mail code{font-family:var(--f-mono);font-size:.8rem;padding:4px 8px;border-radius:8px;background:var(--well);border:1px solid var(--line);user-select:all;overflow-wrap:anywhere}
+
+/* Champs & boutons */
+.f{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:grid;gap:6px}
+input,select{font:500 1rem var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink);background:var(--well);border:1px solid var(--line-2);border-radius:var(--r-sm);padding:10px 12px;width:100%;min-width:0}
+input::placeholder{color:rgba(166,162,204,.5)}
+select option{background:var(--bg2)}
+.hint{margin:0;color:var(--muted);font-size:.86rem}
+.btn{font:700 .86rem var(--f-body);border-radius:99px;border:1px solid var(--line-2);background:var(--card-2);color:var(--ink);padding:9px 16px;cursor:pointer}
+.btn.hot{background:var(--pink);border-color:var(--pink)}
+.btn:hover{border-color:var(--ink)}
+.x{background:none;border:1px solid var(--line-2);color:var(--ink-2);border-radius:8px;padding:5px 10px;cursor:pointer;font:600 .8rem var(--f-body);white-space:nowrap}
+.x:hover{color:var(--ink);border-color:var(--ink)}
+
+/* ——— Jour / nuit ——— */
+.suncard{margin-top:16px}
+.sunwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:32px;align-items:start}
+@media (max-width:880px){.sunwrap{grid-template-columns:1fr;gap:20px}}
+.sunctl{display:grid;gap:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tl-bar{position:relative;height:40px;border-radius:12px;overflow:hidden;background:var(--bg2);border:1px solid var(--line)}
+.tl-bar i{position:absolute;top:0;bottom:0}
+.tl-bar i.night{background:linear-gradient(180deg,#2a2370,#1a1650)}
+.tl-bar i.twi{background:linear-gradient(90deg,#6b3a8f,#d0577a)}
+.tl-bar i.twi.r{background:linear-gradient(90deg,#d0577a,#6b3a8f)}
+.tl-bar i.day{background:linear-gradient(180deg,#ffc56b,#ff8d5a)}
+.timeline{position:relative;padding-top:6px}
+.tl-now{position:absolute;top:0;height:52px;width:2px;background:var(--cyan);margin-left:-1px}
+.tl-now::after{content:"";position:absolute;top:-2px;left:-4px;width:10px;height:10px;border-radius:50%;background:var(--cyan)}
+.tl-scale{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.7rem;color:var(--muted);margin-top:8px}
+.sun{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+@media (max-width:700px){.sun{grid-template-columns:1fr 1fr}}
+.sun div{padding:12px;border-radius:var(--r-sm);background:var(--well);border:1px solid var(--line)}
+.sun div.n{border-color:rgba(150,112,255,.5)}
+.sun span{display:block;font-size:.76rem;color:var(--muted);margin-bottom:2px}
+.sun strong{font-family:var(--f-mono);font-size:1.2rem;font-weight:600}
+.sun strong small{display:block;color:var(--muted);font-size:.74rem;font-weight:400}
+.status{font-weight:700;font-size:.88rem;padding:7px 14px;border-radius:99px;justify-self:start}
+.status.jour{color:#0b0a1e;background:var(--amber)}
+.status.nuit{color:var(--ink);background:var(--violet)}
+
+/* ——— Localiser ——— */
+.loc{display:grid;grid-template-columns:1fr 1.15fr;gap:16px}
+@media (max-width:880px){.loc{grid-template-columns:1fr}}
+.res{display:grid;gap:8px}
+.res div{display:grid;grid-template-columns:110px 1fr auto;gap:10px;align-items:center;padding:10px 12px;border-radius:var(--r-sm);background:var(--well);border:1px solid var(--line);min-width:0}
+@media (max-width:480px){.res div{grid-template-columns:1fr auto}.res span{grid-column:1/-1}}
+.res span{font-size:.78rem;color:var(--muted)}
+.res code{font-family:var(--f-mono);font-size:.92rem;overflow-wrap:anywhere}
+
+/* ——— Retour ——— */
+.strip{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:20px;counter-reset:st}
+.strip span{counter-increment:st;display:flex;align-items:center;gap:8px;padding:7px 14px 7px 8px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-weight:600;font-size:.88rem}
+.strip span::before{content:counter(st);font-family:var(--f-mono);font-size:.72rem;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--pink);color:#fff}
+.strip i{color:var(--muted);font-style:normal}
+.rows{display:grid;gap:16px}
+.rrow{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:32px;padding:26px;border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line)}
+@media (max-width:880px){.rrow{grid-template-columns:1fr;gap:22px;padding:22px}}
+.rrow .head{display:grid;gap:16px;align-content:start}
+.tool{display:grid;gap:22px;min-width:0}
+.duo{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:end}
+@media (max-width:560px){.duo{grid-template-columns:1fr}.swap{justify-self:center;transform:rotate(90deg);padding:0!important}}
+.bigin{display:grid;gap:8px}
+.bigin span{font-size:.8rem;color:var(--muted)}
+.bigin input{font-size:clamp(1.8rem,5vw,2.5rem);font-weight:600;padding:12px 16px;border-radius:var(--r-md);text-align:center}
+.bigin input.acc{color:var(--c)}
+.swap{font-size:1.3rem;color:var(--muted);padding-bottom:18px}
+.split{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;align-items:start}
+@media (max-width:720px){.split{grid-template-columns:1fr}}
+.legs{display:grid;gap:8px;min-width:0}
+.legs .lbl{font-size:.8rem;color:var(--muted)}
+.leghead,.leg{display:grid;grid-template-columns:24px 1fr 1fr 84px 32px;gap:8px;align-items:center}
+.leghead span{font-size:.72rem;color:var(--muted)}
+.leghead span:nth-child(4){text-align:right}
+.leg{padding:6px;border-radius:14px;background:var(--well);border:1px solid var(--line)}
+.leg .ix{font-family:var(--f-mono);color:var(--muted);text-align:center;font-size:.85rem}
+.leg input{padding:8px 4px;text-align:center;font-size:.95rem}
+.leg .dur{font-family:var(--f-mono);text-align:right;font-variant-numeric:tabular-nums;line-height:1.25;font-size:.95rem}
+.leg .dur small{display:block;color:var(--muted);font-size:.72rem}
+.leg .dur .nt{color:#c4b5ff}
+.leg .x{padding:5px 0}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.total{border-radius:20px;padding:20px;background:color-mix(in srgb,var(--c) 11%,transparent);border:1px solid color-mix(in srgb,var(--c) 36%,transparent);display:grid;gap:4px}
+.total .lbl{font-size:.8rem;color:var(--muted)}
+.total strong{font-family:var(--f-mono);font-size:clamp(2.2rem,6vw,2.9rem);line-height:1.05;font-variant-numeric:tabular-nums}
+.total em{font-style:normal;font-family:var(--f-mono);font-size:1.3rem;color:var(--c)}
+.jn{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.jn div{padding:9px 10px;border-radius:12px;background:var(--well)}
+.jn span{display:block;font-size:.74rem;color:var(--muted)}
+.jn b{font-family:var(--f-mono);font-size:1.05rem}
+.jn small{color:var(--muted);font-family:var(--f-mono);font-size:.76rem;margin-left:4px}
+.total .src{font-size:.76rem;color:var(--muted);margin-top:6px}
+.total .x{justify-self:start;margin-top:8px}
+.dens{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.dens label{display:flex;gap:10px;align-items:center;font-size:.85rem;color:var(--muted)}
+.dens input{width:92px;text-align:center}
+
+/* ——— Liens ——— */
+.links{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:10px}
+a.lk{display:flex;align-items:center;gap:12px;text-decoration:none;padding:14px 16px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--line);min-width:0}
+a.lk:hover{border-color:var(--violet);background:var(--card-2)}
+a.lk .ic{width:8px;height:8px;flex:none;border-radius:50%;background:var(--violet)}
+a.lk div{min-width:0}
+a.lk b{display:block}
+a.lk i{font-style:normal;font-size:.82rem;color:var(--muted);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.own{display:grid;gap:14px;margin-top:20px;padding:20px;border-radius:var(--r-lg);border:1px dashed var(--line-2)}
+.addf{display:grid;grid-template-columns:1.2fr 2fr auto;gap:10px;align-items:end}
+@media (max-width:620px){.addf{grid-template-columns:1fr}}
+.ownitem{display:flex;gap:8px;align-items:stretch;min-width:0}
+.ownitem a{flex:1}
+footer{color:var(--muted);font-size:.84rem;text-align:center;border-top:1px solid var(--line);padding-top:24px}
+.memo li.sm::before{content:"·"}
+
+/* ——— Checklists ——— */
+li.ck{padding-left:30px!important;cursor:pointer;transition:color .15s,opacity .15s}
+li.ck::before{display:none!important}
+li.ck>input.cb{appearance:none;-webkit-appearance:none;position:absolute;left:0;top:.18em;width:19px;height:19px;padding:0;margin:0;border-radius:6px;border:1.5px solid var(--line-2);background:var(--well);cursor:pointer;display:grid;place-items:center}
+li.ck>input.cb::after{content:"";width:9px;height:5px;border-left:2px solid #0b0a1e;border-bottom:2px solid #0b0a1e;transform:rotate(-45deg) translate(1px,-1px);opacity:0}
+li.ck>input.cb:checked{background:var(--c,var(--green));border-color:var(--c,var(--green))}
+li.ck>input.cb:checked::after{opacity:1}
+li.ck.alert>input.cb{border-color:var(--amber)}
+li.ck.done{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(166,162,204,.5)}
+li.ck.done .mail{text-decoration:none}
+li.ck:hover>input.cb{border-color:var(--c,var(--ink))}
+.prog{grid-column:1/-1;display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}
+.prog .bar{flex:1;min-width:140px;max-width:320px;height:8px;border-radius:99px;background:var(--well);border:1px solid var(--line);overflow:hidden}
+.prog .bar i{display:block;height:100%;width:0;background:var(--c);border-radius:99px;transition:width .3s}
+.prog b{font-family:var(--f-mono);font-size:.85rem;font-weight:500}
+.prog.full b{color:var(--c)}
+.prog .x{font-size:.78rem}
+@media (prefers-reduced-motion:reduce){.prog .bar i,li.ck{transition:none}}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+<style>footer a{color:var(--ink)}</style>
+</head>
+<body>
+
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="../"><i>✚</i><span>Assistant de vol</span></a>
+    <nav class="navl" aria-label="Site">
+      <a href="../">Accueil</a>
+      <a href="../actualites/">Actualités</a>
+      <a href="../reglementation/">Réglementation</a>
+      <a href="../metier/">Le métier</a>
+      <a href="./" aria-current="page" style="color:var(--ink);background:var(--card)">Outils</a>
+    </nav>
+    <span class="navclock" id="nUtc">--:--Z</span>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">HéliSMUR · assistants de vol</div>
+    <h1>Du briefing au <em>retour de mission</em>.</h1>
+    <p class="lead">Les sites officiels et les calculs du quotidien, rangés dans l'ordre de la journée : briefing, déclenchement, retour de mission.</p>
+    <div class="flow">
+      <a href="#briefing" style="--c:var(--cyan)"><span>01</span><b>Prise de service</b></a>
+      <a href="#mission" style="--c:var(--green)"><span>02</span><b>Déclenchement</b></a>
+      <a href="#retour" style="--c:var(--pink)"><span>03</span><b>Retour</b></a>
+    </div>
+    <div class="clocks">
+      <div class="clock utc"><small>UTC · ZULU</small><time id="cUtc">--:--:--</time></div>
+      <div class="clock"><small>LOCAL · PARIS</small><time id="cLoc">--:--:--</time></div>
+    </div>
+  </div>
+  <figure class="art"><img src="../assets/hero.jpg" alt="Deux membres d'équipage HéliSMUR en casque de vol, sous une lumière néon rose"></figure>
+</section>
+
+<!-- ═════════ 01 PRISE DE SERVICE ═════════ -->
+<section id="briefing">
+  <div class="sh" style="--c:var(--cyan)">
+    <span class="idx">01</span>
+    <span class="k">Prise de service</span>
+    <h2>Briefing du jour</h2>
+    <p>Météo, NOTAM, AZBA, puis horaires de nuit aéronautique. Cochez au fur et à mesure : la checklist se remet à zéro chaque jour.</p>
+  </div>
+
+  <div class="grid3">
+    <article class="card" style="--c:var(--cyan)">
+      <div class="top">
+        <div class="ill"><svg viewBox="0 0 48 48"><circle cx="18" cy="16" r="8" fill="#ffb85c"/><path d="M14 36a8 8 0 0 1 1-16 10 10 0 0 1 19 3 7 7 0 0 1 0 13Z" fill="#f3f1ff"/><path d="M20 40l-2 5M27 40l-2 5M34 40l-2 5" stroke="#4fe1ff" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+        <div><span class="tag">Étape 1</span><h3>Météo</h3></div>
+      </div>
+      <a class="main" href="https://aviation.meteo.fr/" target="_blank" rel="noopener"><div>Aéroweb<small>Météo-France aviation</small></div><span class="go">↗</span></a>
+      <div class="chips">
+        <a class="chip" href="https://vigilance.meteofrance.fr/fr" target="_blank" rel="noopener">Vigilance</a>
+        <a class="chip" href="https://meteofrance.com/" target="_blank" rel="noopener">Radar pluie</a>
+        <a class="chip" href="https://www.blitzortung.org/fr/live_lightning_maps.php" target="_blank" rel="noopener">Foudre</a>
+        <a class="chip" href="https://www.windy.com/" target="_blank" rel="noopener">Windy</a>
+      </div>
+      <div class="rules">
+        <div><h4>Étudier</h4><ul><li>De l'Europe vers le local : satellite, fronts, TEMSI, WINTEM, METAR, TAF</li><li>Anticiper les zones inaccessibles (nébulosité, T°, vent)</li></ul></div>
+        <div><h4>Imprimer</h4><ul><li>METAR, TAF long, SIGMET des terrains à 80 NM</li><li>TEMSI basse altitude France</li><li>Vents FL20, FL50 et FL100</li></ul></div>
+      </div>
+    </article>
+
+    <article class="card" style="--c:var(--pink)">
+      <div class="top">
+        <div class="ill"><svg viewBox="0 0 48 48"><path d="M11 5h20l8 8v30H11Z" fill="#f3f1ff"/><path d="M31 5v8h8" fill="#c9c3ff"/><g stroke="#9670ff" stroke-width="2.4" stroke-linecap="round"><path d="M16 20h17M16 26h17M16 32h11"/></g><circle cx="35" cy="37" r="8" fill="#ff4d93"/><path d="M35 33v5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="35" cy="41" r="1.4" fill="#fff"/></svg></div>
+        <div><span class="tag">Étape 2</span><h3>NOTAM &amp; Sup AIP</h3></div>
+      </div>
+      <a class="main" href="https://sofia-briefing.aviation-civile.gouv.fr/" target="_blank" rel="noopener"><div>SOFIA Briefing<small>Recherche « route étroite »</small></div><span class="go">↗</span></a>
+      <div class="chips">
+        <a class="chip" href="https://www.sia.aviation-civile.gouv.fr/" target="_blank" rel="noopener">SIA</a>
+        <a class="chip" href="https://olivia.aviation-civile.gouv.fr/" target="_blank" rel="noopener">Olivia</a>
+      </div>
+      <div class="rules">
+        <div><h4>Régler la recherche</h4><ul><li>24 h maximum</li><li>FIR concernées dans 80 NM autour de la base</li><li class="alert">Vérifier les NOTAM des hélistations « LFXX »</li></ul></div>
+        <div><h4>Sup AIP</h4><ul><li><span class="path">Préparation du vol › Sup AIP Métropole</span></li><li>Imprimer ceux de la zone de travail</li></ul></div>
+      </div>
+    </article>
+
+    <article class="card" style="--c:var(--amber)">
+      <div class="top">
+        <div class="ill"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" fill="none" stroke="#ffb85c" stroke-width="2.4" stroke-dasharray="4 3"/><circle cx="24" cy="24" r="11" fill="#ffb85c" opacity=".3"/><path d="M8 34 L20 22 L26 28 L40 14" stroke="#f3f1ff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M34 14h6v6" stroke="#f3f1ff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><span class="tag">Étape 3</span><h3>AZBA</h3></div>
+      </div>
+      <a class="main" href="https://www.sia.aviation-civile.gouv.fr/" target="_blank" rel="noopener"><div>SIA · Cartes AZBA<small>Activité du réseau TBA</small></div><span class="go">↗</span></a>
+      <div class="rules">
+        <div><h4>Où</h4><ul><li><span class="path">Préparation du vol › Cartes AZBA</span></li></ul></div>
+        <div><h4>Contrôler</h4><ul><li>Activation des zones TBA autour de la base</li><li class="alert">Zone active dans le secteur : enregistrer et imprimer la carte</li><li class="alert">Couloir TBA à traverser en mission : procédure « CERISE »</li></ul></div>
+      </div>
+    </article>
+  </div>
+
+  <article class="card suncard" style="--c:var(--violet)">
+    <div class="sunwrap">
+      <div class="sunctl">
+        <div class="top">
+          <div class="ill"><svg viewBox="0 0 48 48"><path d="M30 8a16 16 0 1 0 10 28A14 14 0 0 1 30 8Z" fill="#c9c3ff"/><circle cx="36" cy="13" r="2" fill="#ffb85c"/><circle cx="41" cy="22" r="1.4" fill="#ffb85c"/></svg></div>
+          <div><span class="tag">Étape 4</span><h3>Jour / nuit aéronautique</h3></div>
+        </div>
+        <div class="two">
+          <label class="f" for="base">Base<select id="base"></select></label>
+          <label class="f" for="sday">Date<input id="sday" type="date"></label>
+        </div>
+        <div class="two" id="custom" hidden>
+          <label class="f" for="lat">Latitude<input id="lat" inputmode="decimal" value="47.47"></label>
+          <label class="f" for="lon">Longitude<input id="lon" inputmode="decimal" value="-0.55"></label>
+        </div>
+        <span class="status" id="dnStatus" hidden>—</span>
+      </div>
+      <div>
+        <div class="timeline" aria-hidden="true">
+          <div class="tl-bar" id="tlBar"></div>
+          <div class="tl-now" id="tlNow" hidden></div>
+          <div class="tl-scale"><span>00h</span><span>06h</span><span>12h</span><span>18h</span><span>24h</span></div>
+        </div>
+        <div class="sun">
+          <div class="n"><span>Fin de nuit</span><strong id="ne">--:--</strong></div>
+          <div><span>Lever du soleil</span><strong id="sr">--:--</strong></div>
+          <div><span>Coucher du soleil</span><strong id="ss">--:--</strong></div>
+          <div class="n"><span>Début de nuit</span><strong id="nb">--:--</strong></div>
+        </div>
+        <p class="hint" style="margin-top:12px">Nuit aéronautique : de 30 min après le coucher à 30 min avant le lever. Heure locale, UTC dessous. Précision ± 2 min.</p>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<!-- ═════════ 02 DÉCLENCHEMENT ═════════ -->
+<section id="mission">
+  <div class="sh" style="--c:var(--green)">
+    <span class="idx">02</span>
+    <span class="k">Déclenchement</span>
+    <h2>Localiser et préparer</h2>
+    <p>Situer l'intervention et convertir les coordonnées reçues dans le format attendu.</p>
+  </div>
+
+  <div class="loc">
+    <article class="card" style="--c:var(--green)">
+      <div class="top">
+        <div class="ill"><svg viewBox="0 0 48 48"><path d="M24 44s14-13 14-24a14 14 0 0 0-28 0c0 11 14 24 14 24Z" fill="#5cf0ad"/><circle cx="24" cy="20" r="6" fill="#0b0a1e"/></svg></div>
+        <div><span class="tag">Localiser</span><h3>HéliSMUR</h3></div>
+      </div>
+      <p class="what">Recherche par adresse ou par coordonnées pour situer l'intervention.</p>
+      <a class="main" href="https://helismur.univ-lille2.fr/" target="_blank" rel="noopener"><div>Ouvrir HéliSMUR<small>helismur.univ-lille2.fr</small></div><span class="go">↗</span></a>
+      <div class="chips">
+        <a class="chip" href="https://www.geoportail.gouv.fr/" target="_blank" rel="noopener">Géoportail</a>
+        <a class="chip" href="https://www.geoportail.gouv.fr/donnees/carte-oaci-vfr" target="_blank" rel="noopener">Carte OACI</a>
+      </div>
+    </article>
+    <article class="card" style="--c:var(--green)">
+      <div><span class="tag">Outil</span><h3>Convertir des coordonnées</h3></div>
+      <label class="f" for="gIn">Coordonnées reçues<input id="gIn" value="47.4698, -0.5531" autocomplete="off"></label>
+      <p class="hint">Tous les formats : 47.4698, -0.5531 · N47°28.19' W000°33.19' · 47°28'11"N 0°33'11"W</p>
+      <div class="res" id="gRes"></div>
+    </article>
+  </div>
+
+</section>
+
+<!-- ═════════ 03 RETOUR ═════════ -->
+<section id="retour">
+  <div class="sh" style="--c:var(--pink)">
+    <span class="idx">03</span>
+    <span class="k">Retour de mission</span>
+    <h2>Heures de vol et carburant</h2>
+    <p>Les calculs de fin de mission, pour remplir le carnet de route, le compte rendu et le logiciel de suivi de votre exploitant.</p>
+  </div>
+
+  <div class="rows">
+
+    <div class="rrow" style="--c:var(--pink)">
+      <div class="head">
+        <div class="top">
+          <div class="ill"><svg viewBox="0 0 48 48"><circle cx="24" cy="26" r="16" fill="none" stroke="#f3f1ff" stroke-width="3"/><path d="M24 26V16M24 26l7 5" stroke="#ff4d93" stroke-width="3" stroke-linecap="round"/><rect x="20" y="4" width="8" height="5" rx="2" fill="#f3f1ff"/></svg></div>
+          <div><span class="tag">Carnet de vol</span><h3>Heures de vol</h3></div>
+        </div>
+        <p class="what">Conversion heures : minutes ⇄ décimal, cumul des branches et partage automatique jour / nuit aéronautique, selon la base et la date choisies à l'étape 4 du briefing.</p>
+      </div>
+      <div class="tool">
+        <div class="duo">
+          <label class="bigin" for="hm"><span>Heures : minutes</span><input id="hm" value="1:45" inputmode="numeric" autocomplete="off"></label>
+          <div class="swap" aria-hidden="true">⇄</div>
+          <label class="bigin" for="dec"><span>Heures décimales</span><input class="acc" id="dec" value="1.75" inputmode="decimal" autocomplete="off"></label>
+        </div>
+        <div class="split">
+          <div class="legs">
+            <span class="lbl">Branches de la journée (heures locales)</span>
+            <div class="leghead"><span>#</span><span>Décollage</span><span>Posé</span><span>Durée</span><span></span></div>
+            <div id="legs"></div>
+            <div class="btns">
+              <button class="btn hot" id="addLeg" type="button">+ Ajouter une branche</button>
+              <button class="btn" id="clrLeg" type="button">Tout effacer</button>
+            </div>
+          </div>
+          <div class="total">
+            <span class="lbl">Total</span>
+            <strong id="tot">0:00</strong>
+            <em id="totDec">0,00 h</em>
+            <div class="jn">
+              <div><span>☀ Jour</span><b id="tJour">0:00</b><small id="tJourD">0,00</small></div>
+              <div><span>☾ Nuit</span><b id="tNuit">0:00</b><small id="tNuitD">0,00</small></div>
+            </div>
+            <span class="src" id="jnBase"></span>
+            <button class="x" id="cpTot" type="button">Copier le total décimal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rrow" style="--c:var(--amber)">
+      <div class="head">
+        <div class="top">
+          <div class="ill"><svg viewBox="0 0 48 48"><path d="M24 5C24 5 11 21 11 30a13 13 0 0 0 26 0C37 21 24 5 24 5Z" fill="#ffb85c"/><path d="M18 31a6 6 0 0 0 6 6" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".8"/></svg></div>
+          <div><span class="tag">Carburant</span><h3>Kéro en kilos</h3></div>
+        </div>
+        <p class="what">Conversion litres ⇄ kilogrammes de Jet A1, avec la densité de votre choix.</p>
+      </div>
+      <div class="tool">
+        <div class="duo">
+          <label class="bigin" for="kL"><span>Litres de Jet A1</span><input id="kL" value="400" inputmode="decimal" autocomplete="off"></label>
+          <div class="swap" aria-hidden="true">⇄</div>
+          <label class="bigin" for="kKg"><span>Kilogrammes</span><input class="acc" id="kKg" inputmode="decimal" autocomplete="off"></label>
+        </div>
+        <div class="dens">
+          <label for="kD">Densité <input id="kD" value="0.80" inputmode="decimal"></label>
+          <button class="x" id="cpKg" type="button">Copier les kg</button>
+        </div>
+        <p class="hint">Mettez la densité du bon de livraison si vous l'avez : elle reste mémorisée.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═════════ LIENS ═════════ -->
+<section id="liens">
+  <div class="sh" style="--c:var(--violet)">
+    <span class="idx">↗</span>
+    <span class="k">Raccourcis</span>
+    <h2>Tous les liens</h2>
+    <p>Ajoutez vos propres sites en dessous. Ils restent enregistrés dans votre navigateur.</p>
+  </div>
+  <div class="links" id="links"></div>
+  <div class="own">
+    <form class="addf" id="addForm">
+      <label class="f" for="lkName">Nom<input id="lkName" placeholder="Planning base" required></label>
+      <label class="f" for="lkUrl">Adresse<input id="lkUrl" placeholder="https://…" required></label>
+      <button class="btn hot" type="submit" style="padding:12px 20px">Ajouter</button>
+    </form>
+    <div class="links" id="own"></div>
+  </div>
+</section>
+
+<footer>Outil d'aide non officiel. Le manuel d'exploitation de votre entreprise, le SIA et Météo-France font foi. · <a href="../">Assistant de vol SMUH</a></footer>
+</main>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,'0');
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const num=s=>parseFloat(String(s).replace(',','.'));
+function copy(btn,text,label){const ok=()=>{btn.textContent='Copié ✓';setTimeout(()=>btn.textContent=label,1400);};
+  try{navigator.clipboard.writeText(text).then(ok,()=>{btn.textContent=text;});}catch(e){btn.textContent=text;}}
+
+/* Horloges */
+function tick(){const d=new Date(),u=pad(d.getUTCHours())+':'+pad(d.getUTCMinutes());
+  $('cUtc').textContent=u+':'+pad(d.getUTCSeconds());$('nUtc').textContent=u+'Z';
+  $('cLoc').textContent=pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());}
+tick();setInterval(tick,1000);
+
+/* Boutons copier + rappel mensuel */
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>copy(b,b.dataset.copy,'Copier')));
+
+
+
+/* Checklists (remise à zéro chaque jour, ou à la main) */
+const today=new Date().toISOString().slice(0,10);
+[['briefing','prise de service'],['mission','déclenchement'],['retour','retour de mission']].forEach(([sid])=>{
+  const sec=$(sid),key='smuh_ck_'+sid;let st=store.get(key,{});if(st.day!==today)st={day:today};
+  const items=[...sec.querySelectorAll('.rules li, .memo li')].filter(li=>!li.classList.contains('sm'));if(!items.length)return;
+  const sh=sec.querySelector('.sh'),c=getComputedStyle(sh).getPropertyValue('--c');
+  const prog=document.createElement('div');prog.className='prog';prog.style.setProperty('--c',c);
+  prog.innerHTML='<b></b><div class="bar"><i></i></div><button class="x" type="button">Remettre à zéro</button>';
+  sh.appendChild(prog);
+  function upd(){const n=items.filter(li=>li.classList.contains('done')).length;
+    prog.querySelector('b').textContent='Checklist '+n+' / '+items.length;
+    prog.querySelector('i').style.width=(items.length?n/items.length*100:0)+'%';
+    prog.classList.toggle('full',n===items.length);}
+  items.forEach((li,i)=>{const id=sid+'-ck'+i;const cb=document.createElement('input');cb.type='checkbox';cb.className='cb';cb.id=id;
+    cb.setAttribute('aria-label',li.textContent.trim().slice(0,90));
+    li.classList.add('ck');li.prepend(cb);cb.checked=!!st[id];li.classList.toggle('done',cb.checked);
+    const set=v=>{cb.checked=v;li.classList.toggle('done',v);st[id]=v;store.set(key,st);upd();};
+    cb.addEventListener('change',()=>set(cb.checked));
+    li.addEventListener('click',e=>{if(e.target===cb||e.target.closest('a,button,code,input'))return;set(!cb.checked);});});
+  prog.querySelector('.x').addEventListener('click',()=>{st={day:today};store.set(key,st);
+    items.forEach(li=>{li.querySelector('.cb').checked=false;li.classList.remove('done');});upd();});
+  upd();});
+
+/* Jour / nuit (NOAA) */
+const SUN={ne:null,nb:null,label:'',cb:null};
+const BASES=[["Angers",47.469,-0.553],["Bordeaux",44.837,-0.579],["Brest",48.390,-4.486],["Caen",49.183,-0.371],["Châteauroux",46.811,1.691],["Clermont-Ferrand",45.778,3.087],["Dijon",47.322,5.041],["Grenoble",45.188,5.724],["Le Mans",48.006,0.199],["Lille",50.629,3.057],["Limoges",45.834,1.261],["Lyon",45.764,4.836],["Marseille",43.296,5.370],["Montpellier",43.611,3.877],["Nancy",48.692,6.184],["Nantes",47.218,-1.553],["Nice",43.710,7.262],["Orléans",47.902,1.909],["Paris",48.857,2.352],["Poitiers",46.580,0.340],["Reims",49.258,4.032],["Rennes",48.117,-1.678],["Rouen",49.443,1.100],["Strasbourg",48.573,7.752],["Toulouse",43.605,1.444],["Tours",47.394,0.689],["Autre (coordonnées)",null,null]];
+const sel=$('base');BASES.forEach((b,i)=>{const o=document.createElement('option');o.value=i;o.textContent=b[0];sel.appendChild(o);});
+sel.value=Math.min(store.get('smuh_base',0),BASES.length-1);
+const t0=new Date();$('sday').value=t0.getFullYear()+'-'+pad(t0.getMonth()+1)+'-'+pad(t0.getDate());
+function sunUTC(date,lat,lon,rise){const rad=Math.PI/180;
+  const N=Math.floor((Date.UTC(date.getFullYear(),date.getMonth(),date.getDate())-Date.UTC(date.getFullYear(),0,0))/864e5);
+  const g=2*Math.PI/365*(N-1);
+  const eq=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g));
+  const dec=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g);
+  const c=(Math.cos(90.833*rad)/(Math.cos(lat*rad)*Math.cos(dec)))-Math.tan(lat*rad)*Math.tan(dec);
+  if(c>1||c<-1)return null;const ha=Math.acos(c)/rad;return 720-4*(lon+(rise?ha:-ha))-eq;}
+function show(id,minUTC,y,mo,d){if(minUTC==null){$(id).textContent='—';return null;}
+  const t=new Date(Date.UTC(y,mo,d)+Math.round(minUTC)*60000);
+  $(id).innerHTML=pad(t.getHours())+':'+pad(t.getMinutes())+'<small>'+pad(t.getUTCHours())+':'+pad(t.getUTCMinutes())+' UTC</small>';return t;}
+function renderTimeline(ne,sr,ss,nb,y,mo,d){const bar=$('tlBar');bar.innerHTML='';
+  const mid=new Date(y,mo,d).getTime(),pct=t=>Math.max(0,Math.min(100,(t.getTime()-mid)/864e5*100));
+  const seg=(a,b,c)=>{const i=document.createElement('i');i.className=c;i.style.left=a+'%';i.style.width=(b-a)+'%';bar.appendChild(i);};
+  seg(0,pct(ne),'night');seg(pct(ne),pct(sr),'twi');seg(pct(sr),pct(ss),'day');seg(pct(ss),pct(nb),'twi r');seg(pct(nb),100,'night');
+  const now=new Date(),n=$('tlNow');if(now.getTime()>=mid&&now.getTime()<mid+864e5){n.hidden=false;n.style.left=pct(now)+'%';}else n.hidden=true;}
+function renderSun(){const b=BASES[+sel.value]||BASES[0];$('custom').hidden=b[1]!=null;store.set('smuh_base',+sel.value);
+  const lat=b[1]!=null?b[1]:num($('lat').value),lon=b[2]!=null?b[2]:num($('lon').value);
+  if(isNaN(lat)||isNaN(lon))return;const [y,mo,d]=$('sday').value.split('-').map(Number);if(!y)return;
+  const dt=new Date(y,mo-1,d),r=sunUTC(dt,lat,lon,true),s=sunUTC(dt,lat,lon,false);
+  const srT=show('sr',r,y,mo-1,d),ssT=show('ss',s,y,mo-1,d);
+  const ne=show('ne',r==null?null:r-30,y,mo-1,d),nb=show('nb',s==null?null:s+30,y,mo-1,d);
+  if(ne&&srT&&ssT&&nb)renderTimeline(ne,srT,ssT,nb,y,mo-1,d);
+  const nNe=ne?ne.getHours()*60+ne.getMinutes():null,nNb=nb?nb.getHours()*60+nb.getMinutes():null,nL=b[0]+', le '+pad(d)+'/'+pad(mo);
+  if(nNe!==SUN.ne||nNb!==SUN.nb||nL!==SUN.label){SUN.ne=nNe;SUN.nb=nNb;SUN.label=nL;if(SUN.cb)SUN.cb();}
+  const now=new Date(),st=$('dnStatus');
+  if(now.getFullYear()===y&&now.getMonth()===mo-1&&now.getDate()===d&&ne&&nb){const night=now<ne||now>=nb;
+    st.textContent=night?'☾ En ce moment : nuit aéronautique':'☀ En ce moment : jour aéronautique';st.className='status '+(night?'nuit':'jour');st.hidden=false;}
+  else st.hidden=true;}
+['change','input'].forEach(e=>[sel,$('sday'),$('lat'),$('lon')].forEach(el=>el.addEventListener(e,renderSun)));
+renderSun();setInterval(renderSun,60000);
+
+/* Coordonnées GPS */
+function parseCoords(s){s=s.trim().toUpperCase().replace(/,/g,' ').replace(/[″"]/g,"''").replace(/[′’]/g,"'");
+  const pre=/^[NSEWO]/.test(s);
+  const core="(-?\\d+(?:\\.\\d+)?)\\s*(?:°\\s*(?:(\\d+(?:\\.\\d+)?)\\s*'?)?\\s*(?:(\\d+(?:\\.\\d+)?)\\s*'')?)?";
+  const re=pre?new RegExp("([NSEWO])\\s*"+core+"()","g"):new RegExp("()"+core+"\\s*([NSEWO])?","g");
+  const parts=[];let m;
+  while((m=re.exec(s))&&parts.length<2){if(m[0].trim()===''){re.lastIndex++;continue;}
+    let v=Math.abs(+m[2])+(m[3]?+m[3]/60:0)+(m[4]?+m[4]/3600:0);const h=m[1]||m[5];
+    if(String(m[2]).startsWith('-')||h==='S'||h==='W'||h==='O')v=-v;parts.push({v,h});}
+  if(parts.length<2)return null;let [a,b]=parts;
+  if(a.h&&'EWO'.includes(a.h))[a,b]=[b,a];
+  if(Math.abs(a.v)>90||Math.abs(b.v)>180)return null;return [a.v,b.v];}
+function dm(v,lat){const h=lat?(v<0?'S':'N'):(v<0?'W':'E');v=Math.abs(v);const d=Math.floor(v);const m=(v-d)*60;
+  return h+(lat?pad(d):String(d).padStart(3,'0'))+'°'+m.toFixed(2).padStart(5,'0')+"'";}
+function dms(v,lat){const h=lat?(v<0?'S':'N'):(v<0?'W':'E');v=Math.abs(v);const d=Math.floor(v);const mf=(v-d)*60;let m=Math.floor(mf);let s=Math.round((mf-m)*60);if(s===60){s=0;m++;}
+  return d+'°'+pad(m)+"'"+pad(s)+'"'+h;}
+function renderGps(){const r=$('gRes'),c=parseCoords($('gIn').value);r.innerHTML='';
+  if(!c){r.innerHTML='<p class="hint">Format non reconnu. Exemple : 47.4698, -0.5531</p>';return;}
+  [["Décimal",c[0].toFixed(5)+', '+c[1].toFixed(5)],["Degrés minutes",dm(c[0],true)+' '+dm(c[1],false)],["Deg. min. sec.",dms(c[0],true)+' '+dms(c[1],false)]]
+  .forEach(([k,v])=>{const d=document.createElement('div');d.innerHTML='<span></span><code></code><button class="x" type="button">Copier</button>';
+    d.querySelector('span').textContent=k;d.querySelector('code').textContent=v;
+    const b=d.querySelector('button');b.addEventListener('click',()=>copy(b,v,'Copier'));r.appendChild(d);});}
+$('gIn').addEventListener('input',renderGps);renderGps();
+
+/* Heures <-> décimal */
+function parseHM(s){s=String(s).trim().replace(/[hH]/,':');if(!s)return null;
+  let m=s.match(/^(\d+)\s*:\s*(\d{1,2})$/);if(m){if(+m[2]>59)return null;return (+m[1])*60+(+m[2]);}
+  m=s.match(/^(\d+)$/);if(m)return (+m[1])*60;return null;}
+const fmtHM=min=>Math.floor(min/60)+':'+pad(Math.round(min%60));
+const fmtDec=min=>(min/60).toFixed(2).replace('.',',');
+$('hm').addEventListener('input',()=>{const m=parseHM($('hm').value);$('dec').value=m==null?'':(m/60).toFixed(2);});
+$('dec').addEventListener('input',()=>{const v=num($('dec').value);$('hm').value=isNaN(v)?'':fmtHM(Math.round(v*60));});
+
+/* Branches + partage jour / nuit */
+let legs=store.get('smuh_legs',[["09:12","09:58"],["10:40","11:27"]]),totMin=0;
+function clockMin(s){const m=String(s).trim().match(/^(\d{1,2})[:hH]?(\d{2})$/);if(!m)return null;const h=+m[1],mm=+m[2];if(h>23||mm>59)return null;return h*60+mm;}
+function nightMin(a,b){if(SUN.ne==null||SUN.nb==null)return 0;if(b<a)b+=1440;
+  const iv=[[0,SUN.ne],[SUN.nb,1440+SUN.ne],[1440+SUN.nb,2880]];let n=0;
+  iv.forEach(([x,y])=>{n+=Math.max(0,Math.min(b,y)-Math.max(a,x));});return n;}
+function renderLegs(){const tb=$('legs');tb.innerHTML='';let tot=0,nt=0;
+  legs.forEach((l,i)=>{const a=clockMin(l[0]),b=clockMin(l[1]);let d=null,n=0;if(a!=null&&b!=null){d=b-a;if(d<0)d+=1440;tot+=d;n=nightMin(a,b);nt+=n;}
+    const row=document.createElement('div');row.className='leg';
+    row.innerHTML=`<span class="ix">${i+1}</span><input id="la${i}" placeholder="hh:mm" inputmode="numeric" aria-label="Décollage ${i+1}"><input id="lb${i}" placeholder="hh:mm" inputmode="numeric" aria-label="Posé ${i+1}"><span class="dur">${d==null?'—':fmtHM(d)+'<small>'+fmtDec(d)+' h'+(n?' · <span class="nt">☾ '+fmtHM(n)+'</span>':'')+'</small>'}</span><button class="x" type="button" aria-label="Supprimer la branche ${i+1}">✕</button>`;
+    const ia=row.querySelector('#la'+i),ib=row.querySelector('#lb'+i);ia.value=l[0];ib.value=l[1];
+    ia.addEventListener('change',e=>{legs[i][0]=e.target.value;save();});
+    ib.addEventListener('change',e=>{legs[i][1]=e.target.value;save();});
+    row.querySelector('.x').addEventListener('click',()=>{legs.splice(i,1);if(!legs.length)legs=[["",""]];save();});
+    tb.appendChild(row);});
+  totMin=tot;$('tot').textContent=fmtHM(tot);$('totDec').textContent=fmtDec(tot)+' h';
+  $('tJour').textContent=fmtHM(tot-nt);$('tJourD').textContent=fmtDec(tot-nt);
+  $('tNuit').textContent=fmtHM(nt);$('tNuitD').textContent=fmtDec(nt);
+  $('jnBase').textContent='Nuit calculée pour '+(SUN.label||'la base du briefing')+'.';}
+function save(){store.set('smuh_legs',legs);renderLegs();}
+SUN.cb=()=>renderLegs();
+$('addLeg').addEventListener('click',()=>{legs.push(["",""]);save();});
+$('clrLeg').addEventListener('click',()=>{legs=[["",""]];save();});
+$('cpTot').addEventListener('click',e=>copy(e.currentTarget,fmtDec(totMin),'Copier le total décimal'));
+renderLegs();
+
+/* Kéro */
+$('kD').value=store.get('smuh_dens','0.80');
+const dens=()=>{const d=num($('kD').value);return d>0.6&&d<1?d:0.8;};
+const r1=v=>String(Math.round(v*10)/10).replace('.',',');
+function l2k(){const v=num($('kL').value);$('kKg').value=isNaN(v)?'':r1(v*dens());}
+function k2l(){const v=num($('kKg').value);$('kL').value=isNaN(v)?'':r1(v/dens());}
+$('kL').addEventListener('input',l2k);$('kKg').addEventListener('input',k2l);
+$('kD').addEventListener('input',()=>{store.set('smuh_dens',$('kD').value);l2k();});
+$('cpKg').addEventListener('click',e=>copy(e.currentTarget,$('kKg').value,'Copier les kg'));
+l2k();
+
+/* Liens */
+function card(n,u,d){const a=document.createElement('a');a.className='lk';a.href=u;a.target='_blank';a.rel='noopener';
+  a.innerHTML='<span class="ic"></span><div><b></b><i></i></div>';a.querySelector('b').textContent=n;a.querySelector('i').textContent=d;return a;}
+[["Aéroweb","https://aviation.meteo.fr/","Météo aviation"],
+ ["SOFIA Briefing","https://sofia-briefing.aviation-civile.gouv.fr/","NOTAM"],
+ ["SIA","https://www.sia.aviation-civile.gouv.fr/","AZBA, Sup AIP"],
+ ["HéliSMUR","https://helismur.univ-lille2.fr/","Localiser une intervention"],
+ ["Carte OACI","https://www.geoportail.gouv.fr/donnees/carte-oaci-vfr","Géoportail, carte VFR"],
+ ["Géoportail","https://www.geoportail.gouv.fr/","Cartes IGN, photos aériennes"]
+].forEach(l=>$('links').appendChild(card(...l)));
+let own=store.get('smuh_own',[]);
+function renderOwn(){const o=$('own');o.innerHTML='';
+  own.forEach((l,i)=>{const w=document.createElement('div');w.className='ownitem';
+    w.appendChild(card(l.n,l.u,l.u.replace(/^https?:\/\//,'')));
+    const x=document.createElement('button');x.className='x';x.type='button';x.textContent='Retirer';
+    x.addEventListener('click',()=>{own.splice(i,1);store.set('smuh_own',own);renderOwn();});w.appendChild(x);o.appendChild(w);});}
+$('addForm').addEventListener('submit',e=>{e.preventDefault();let u=$('lkUrl').value.trim();if(!/^https?:\/\//i.test(u))u='https://'+u;
+  own.push({n:$('lkName').value.trim(),u});store.set('smuh_own',own);$('lkName').value='';$('lkUrl').value='';renderOwn();});
+renderOwn();
+})();
+</script>
+</body>
+</html>
