@@ -1,6 +1,15 @@
 {
-  "updated": "2026-10-19",
+  "updated": "2026-11-02",
   "items": [
+    {
+      "id": "2026-10-29-belle-plaine-helistation",
+      "date": "2026-10-29",
+      "category": "Hélistations",
+      "title": "Guadeloupe : premier poser sur l'hélistation du nouveau CHU de Belle-Plaine",
+      "summary": "Le H145 Dragon 971 de la Sécurité civile s'est posé pour la première fois le 29 octobre sur le toit du plateau médico-technique du futur CHU. Un ascenseur dédié, accessible jour et nuit, y relie directement la plateforme à l'hôpital, alors que les patients héliportés arrivaient jusqu'ici en ambulance depuis le site de Chauvel. Le déménagement doit commencer en novembre et s'achever d'ici janvier 2027.",
+      "source": "RCI Guadeloupe",
+      "url": "https://rci.fm/guadeloupe/infos/Sante/Nouveau-CHU-de-Guadeloupe-le-Dragon-971-se-pose-pour-la-premiere-fois-sur-lhelistation"
+    },
     {
       "id": "2026-10-16-helismur12-millau",
       "date": "2026-10-16",
