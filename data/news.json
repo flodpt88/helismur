@@ -1,6 +1,19 @@
 {
-  "updated": "2026-11-02",
+  "updated": "2026-11-23",
   "items": [
+    {
+      "id": "2026-11-07-petit-caux-eclairage-dz",
+      "date": "2026-11-07",
+      "category": "Hélistations",
+      "title": "Seine-Maritime : un balisage lumineux déclenché à distance par le régulateur à Petit-Caux",
+      "summary": "La commune de Petit-Caux a présenté le 7 novembre, à Berneval-le-Grand, un système d'éclairage de zone de poser que le médecin régulateur du SAMU peut allumer à distance avant l'arrivée de l'hélicoptère. Ses promoteurs annoncent jusqu'à une vingtaine de minutes gagnées sur les interventions de nuit, sans attendre qu'une équipe au sol balise le terrain. Le dispositif, baptisé E-Boo, a été inauguré en présence de l'hélicoptère du SAMU.",
+      "source": "actu.fr (via Head Topics)",
+      "url": "https://fr.headtopics.com/news/decouvrez-ce-dispositif-innovant-pour-reduire-le-delai-89578119",
+      "audience": [
+        "pilote",
+        "tcm"
+      ]
+    },
     {
       "id": "2026-10-29-belle-plaine-helistation",
       "date": "2026-10-29",
